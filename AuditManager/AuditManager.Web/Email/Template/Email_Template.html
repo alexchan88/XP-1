@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Email</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div>
+        <div class="divHeader"></div>
+        <div class="divBody">
+            <div class="divFromTo">
+                <div>
+                    <p><b>From:</b>{{From}}</p>
+                    <p><b>To:</b>{{To}}</p>
+                </div>
+                <div>
+                    <h4>
+                        INTERNAL USE ONLY
+                    </h4>
+                </div>
+            </div>
+            <div class="divSubject">
+                <div>
+                    <h1>
+                        Confirmation of Workspace Closure {{Subject_Header}}
+                    </h1>
+                </div>
+                <div>
+                    <h3>
+                        {{CurrentDate}}
+                    </h3>
+                </div>
+                <div>
+                    <p>
+                        <b>Subject: DRMS Workspace {{WorkspaceName}} Closed Successfully {{Subject}}</b>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        Your request for closure of the DRMS workspace containing your electronic audit
+                        documentation has been completed successfully. {{Subject_Description}}
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <b>Engagement Number:</b> {{WorkspaceID}}
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <b>Engagement Name:</b> {{WorkspaceName}}
+                    </p>
+                </div>
+            </div>
+            <div class="divContent">
+                <p>
+                    <object data="Closure_Include.html"></object>
+                </p>
+            </div>
+            <div class="divQuestion">
+                <p>
+                    <strong>Questions?</strong>
+                </p>
+                <p>
+                    If you have any questions, the National Support Center (NSC) is available 24 hours
+                    a day, seven days a week at 1-800-KPMG-HELP. Alternatively, you can double-click
+                    the ITS Support Center icon&nbsp;
+                    <img width="18" height="18" src="cid:{{image002}}" />
+                    &nbsp;in the bottom right corner of your desktop.
+
+
+                    <!--If you have any questions, the National Support Center (NSC) is available 24 hours 
+                    a day, seven days a week at 1-800-KPMG-HELP. Alternatively, you can place a service 
+                    order by double-clicking the KTech Fusion     icon on the bottom left-hand side of 
+                    your screen and selecting the Get Help icon to either start a chat or fill out a form 
+                    to request assistance.--> 
+                </p>
+            </div>
+        </div>
+        <div class="divFooter">
+            <p>
+                <strong>KPMG CONFIDENTIAL</strong>
+            </p>
+            <p>
+                © 2014 KPMG LLP, a Delaware limited liability partnership and the U.S. member firm
+                of the KPMG network of independent member firms affiliated with KPMG International
+                Cooperative ("KPMG International"), a Swiss entity. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,395 @@
+﻿
+
+.ui-autocomplete-loading {
+    background: white url("~/Content/images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
+.btnNoBorder {
+    outline: 0 !important;
+}
+
+
+
+
+
+
+
+.margin-Lt-150 {
+    margin-left: 150px !important;
+}
+
+
+
+
+
+
+
+
+hr {
+    margin: 2px;
+    margin-left: -10px;
+}
+
+
+
+
+
+input, select, textarea, label {
+    max-width: 1600px;
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+    input[type="checkbox"] {
+        /*margin: 4px 0 0;*/
+    }
+
+label {
+    /*margin-bottom: 1px;
+            margin-top: 3px;*/
+}
+
+.checkbox-margin {
+    margin-bottom: 2px !important;
+    margin-top: 2px !important;
+}
+
+/*//VIR-1027*/
+/*.left-eng-div {
+    height: 607px;
+    overflow-y: auto;
+    overflow-x: auto;
+}*/
+
+.form-control {
+    height: 22px;
+    padding: 0 4px;
+}
+
+.btn-search {
+    height: 22px !important;
+    padding: 0 4px !important;
+}
+
+/*.control-label{
+   float:left; 
+   vertical-align:middle;        
+}*/
+
+.input-group-addon {
+    height: 22px;
+    padding: 0 4px;
+}
+
+.tooltip {
+    float: left;
+}
+
+
+.tooltip-inner {
+    white-space: pre;
+    max-width: none;
+}
+
+.dtpUnselectable {
+    text-decoration: line-through;
+}
+
+mark {
+    background-color: red;
+}
+
+div small.error {
+    color: #B94A48; /* color to match Bootstraps error class */
+}
+
+div label.error {
+    color: #B94A48; /* color to match Bootstraps error class */
+}
+
+div mark.error {
+    color: white; /* color to match Bootstraps error class */
+    font-weight: bold;
+}
+
+
+.pTopMargin5 {
+    margin: 5px 0 0 0 !important;
+}
+
+
+
+.pBotMargin5 {
+    margin: 0px 0 5px 0 !important;
+}
+
+
+
+
+
+.toolTipImg {
+    height: 10px;
+    width: 10px;
+    margin-right: 2px;
+}
+
+.k-grid tbody tr {
+    height: 30px !important;
+    padding: 0 !important;
+}
+
+.k-grid td {
+    padding: 0 !important;
+    padding-left: 8px !important;
+    border-spacing: 0 !important;
+    line-height: 0 !important;
+}
+
+.k-grid-header .k-header {
+    font-size: 11px !important;
+    font-weight: bold !important;
+}
+
+.k-grid tr td {
+    overflow: visible !important;
+}
+
+.red {
+    color: red;
+}
+
+.iFrame {
+    border: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+.dmUpNDown {
+    padding: 0px !important;
+}
+
+.dmUp {
+    padding: 0px !important;
+}
+
+.dmDown {
+    padding: 0px !important;
+}
+
+
+.table-responsive.tdMenu {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+
+/*Dialog Minimize Max*/
+#dialog_window_minimized_container {
+    position: fixed;
+    bottom: 50px;
+    left: 0px;
+}
+
+.dialog_window_minimized {
+    float: left;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 2px;
+    display: none;
+}
+
+    .dialog_window_minimized .ui-icon {
+        display: inline-block !important;
+        position: relative;
+        top: 3px;
+        cursor: pointer;
+    }
+
+.ui-dialog .ui-dialog-titlebar-minimize {
+    height: 18px;
+    width: 19px;
+    padding: 1px;
+    position: absolute;
+    right: 23px;
+    top: 9px;
+}
+
+    .ui-dialog .ui-dialog-titlebar-minimize .ui-icon {
+        display: block;
+        margin: 1px;
+    }
+
+    .ui-dialog .ui-dialog-titlebar-minimize:hover, .ui-dialog .ui-dialog-titlebar-minimize:focus {
+        padding: 0;
+    }
+/*Dialog Minimize Max*/
+
+/*Menu*/
+/*.ui-menu {
+    width: 130px;
+    font-size: 11px;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background: inherit;
+    display: inline-block;
+}*/
+
+/*.menuChild {
+    background-color: #D8EEFA !important;
+}*/
+/*Menu*/
+
+.displayNone {
+    display: none;
+}
+
+.displayBlock {
+    display: block;
+}
+
+.ui-datepicker {
+    z-index: 9000 !important;
+}
+
+
+
+.no-margin {
+    margin: 0 !important;
+}
+
+/*#initiateClosureGrid{
+    min-height: 270px;
+    max-height: 270px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+}*/
+
+
+/*#fileGrid {
+    min-height: 435px;
+    max-height: 435px;
+    overflow-y: scroll;
+}*/
+
+.fsClosureComment > legend {
+    font-size: 11px;
+    font-weight: normal;
+}
+
+.fsClosureComment > p {
+    text-wrap: normal;
+    width: 40em;
+    word-wrap: break-word;
+}
+
+
+
+
+
+.panel-title-font12 {
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
+
+
+/**/
+#sidebar {
+    height: 100%;
+    padding-right: 0;
+    padding-top: 5px;
+    background-color: aliceblue;
+}
+
+    #sidebar .nav {
+        width: 95%;
+    }
+
+    #sidebar li {
+        border: 0 #f2f2f2 solid;
+        border-bottom-width: 1px;
+    }
+
+/* collapsed sidebar styles */
+/*@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+    }
+
+    .row-offcanvas-right .sidebar-offcanvas {
+        right: -41.6%;
+    }
+
+    .row-offcanvas-left .sidebar-offcanvas {
+        left: -41.6%;
+    }
+
+    .row-offcanvas-right.active {
+        right: 41.6%;
+    }
+
+    .row-offcanvas-left.active {
+        left: 41.6%;
+    }
+
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 41.6%;
+    }
+
+    #sidebar {
+        background-color: #3b3b3b;
+        padding-top: 0;
+    }
+
+        #sidebar .nav > li {
+            color: #ddd;
+            background: linear-gradient(#3E3E3E, #383838);
+            border-top: 1px solid #484848;
+            border-bottom: 1px solid #2E2E2E;
+        }
+
+            #sidebar .nav > li:first-child {
+                border-top: 0;
+            }
+
+            #sidebar .nav > li > a {
+                color: #ddd;
+            }
+
+                #sidebar .nav > li > a > img {
+                    max-width: 14px;
+                }
+
+                #sidebar .nav > li > a:hover, #sidebar .nav > li > a:focus {
+                    text-decoration: none;
+                    background: linear-gradient(#373737, #323232);
+                    color: #fff;
+                }
+
+        #sidebar .nav .caret {
+            border-top-color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        #sidebar .nav a:hover .caret {
+            border-top-color: #fff;
+            border-bottom-color: #fff;
+        }
+}*/
+
+.font-asterisk-required {
+    /*padding: 0 !important;
+    margin: 0 !important;
+    background-color: red;*/
+    font-weight: bolder;
+    color: black;
+}
+
+/**/

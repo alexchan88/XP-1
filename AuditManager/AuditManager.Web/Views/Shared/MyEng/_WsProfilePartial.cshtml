@@ -1,0 +1,428 @@
+﻿<div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+    <div class="row-fluid col-xs-12 col-md-12 rowSpacing-2">
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <button id="btnProfileInitiateClosure" class="btn btn-primary btn-xs" type="button">
+            <i class='glyphicon glyphicon-pencil'></i> Initiate Closure
+        </button>
+        <button id="btnProfileEdit" class="btn btn-primary btn-xs" type="button">
+            <div><i class='glyphicon glyphicon-edit'></i> Edit</div>
+        </button>
+        <button id="btnProfileSave" class="btn btn-primary btn-xs" type="button">
+            <div><i class='glyphicon glyphicon-save'></i> Save</div>
+        </button>
+        <button id="btnProfileCancel" class="btn btn-primary btn-xs" type="button">
+            <div><i class='glyphicon glyphicon-thumbs-down'></i> Cancel</div>
+        </button>
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 rowSpacing-2">
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0" style="overflow-x: auto;">
+        <!-- ko with: selectedWs() -->
+        <!-- ko with: WsProfile() -->
+        <input id="txtPreservationComment" name="txtPreservationComment" type="text" hidden>
+        <input id="txtRetentionComment" name="txtRetentionComment" type="text" hidden>
+
+        <div class="row-fluid padding-0">
+
+            <label class="control-label col-xs-6 col-md-3 padding-0" for="txtEngNum">
+                Engagement Number
+            </label>
+            <div class="col-xs-6 col-md-3">
+                <input class="form-control" id="txtEngNum" name="txtEngNum" type="text" data-bind="value: EngNum" disabled>
+            </div>
+            <label class="control-label col-xs-6 col-md-3 padding-0" for="txtEngName">
+                Engagement Name
+            </label>
+            <div class="col-xs-6 col-md-3">
+                <input class="form-control" id="txtEngName" name="txtEngName" type="text" data-bind="value: $parent.Name" disabled>
+            </div>
+
+        </div>
+
+        <div class="row-fluid padding-0">
+
+            <label class="control-label col-xs-6 col-md-3 padding-0" for="txtEngPar">
+                Engagement Partner
+            </label>
+            <div class="col-xs-6 col-md-3">
+                <input class="form-control" id="txtEngPar" name="txtEngPar" type="text" data-bind="value: PartnerDesc.FullName" disabled>
+            </div>
+            <label class="control-label col-xs-6 col-md-3 padding-0" for="txtEngName">
+                Engagement Manager
+            </label>
+            <div class="col-xs-6 col-md-3">
+                <input class="form-control" id="txtEngMgr" name="txtEngMgr" type="text" data-bind="value: ManagerDesc.FullName" disabled>
+            </div>
+
+        </div>
+
+        <div class="row-fluid padding-0">
+
+            <label class="control-label col-xs-6 col-md-3 padding-0" for="txtRetPol">
+                Retention Policy
+            </label>
+            <div class="col-xs-6 col-md-3">
+                @*<input class="form-control" id="txtRetPol" name="txtRetPol" type="text" data-bind="value: RetPolicy" disabled>*@
+                <select class="form-control  enableOnEdit" id="txtRetPol" name="txtRetPol" data-bind="options: viewModel.availableRetPolicy, value: RetPolicy, event: {change: RetChange}" disabled></select>
+            </div>
+
+            <label class="control-label col-xs-6 col-md-3 padding-0" for="txtEngMgr">
+                Event Trigger Date <img class='toolTipImg' src='/Content/images/info.png' title='Event Trigger Date for this workspace closure' />
+            </label>
+            <div class="col-xs-6 col-md-3">
+                <div class="input-group">
+                    <input class="form-control dtp-Txt-Evnt enableOnEdit" id="txtTrDt" name="txtTrDt"
+                           placeholder="Please select date from the calendar" data-bind="date: EventTrgDate" disabled>
+                    <span class="input-group-addon dtp-Btn-Evnt glyphicon glyphicon-calendar" style="cursor:pointer;">
+                        @*<span class="glyphicon glyphicon-calendar"></span>*@
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row-fluid padding-0">
+
+            <label class="control-label col-xs-6 col-md-3 padding-0" for="txtClient">
+                Client
+            </label>
+            <div class="col-xs-6 col-md-3">
+                <input class="form-control" id="txtClient" name="txtClient" type="text" data-bind="value: ClientDesc" disabled>
+            </div>
+            <label class="control-label col-xs-6 col-md-3  padding-0 checkbox-margin-niu" for="chkIsPre">
+                Is under preservation?
+            </label>
+            <div class="col-xs-6 col-md-3 checkbox-margin-niu">
+                <input id="chkIsPre" name="chkIsPre" type="checkbox" data-bind="checked: IsUnderPreservation" class="enableOnEdit" disabled>
+            </div>
+
+        </div>
+
+        <div class="row-fluid padding-0">
+
+            <label class="control-label col-xs-6 col-md-3 padding-0 checkbox-margin-niu" for="chkIsRetSvr">
+                Files also on Large File Retention Server?
+            </label>
+            <div class="col-xs-6 col-md-3 checkbox-margin-niu">
+                <input id="chkIsRetSvr" name="chkIsRetSvr" type="checkbox" data-bind="checked: IsKDrive" class="enableOnEdit" disabled>
+            </div>
+            <label class="control-label col-xs-6 col-md-3 padding-0 checkbox-margin-niu" for="chkIsS2">
+                Is at least one eAudit MAF for this engagement on Server 2? <img class='toolTipImg' src='/Content/images/info.png' title='If you have at least one MAF on Server 2 and do not complete the process to link the MAF to the appropriate DRMS workspace, your RET and/or ENG files will not be successfully transferred for retention until you do so.' />
+            </label>
+            <div class="col-xs-6 col-md-3 checkbox-margin-niu">
+                <input id="chkIsS2" name="chkIsS2" type="checkbox" data-bind="checked: IsServer2" class="enableOnEdit" disabled>
+                <span data-bind="visible: IsServer2"><a href="#" class="aS2Link amLink" id="aS2Link">Show or Add Server 2 Links</a></span>
+            </div>
+
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+
+        @*<div id="div-req-msg-wsProfile" class="row-fluid col-xs-12 col-md-12 padding-0">
+            <label class="control-label margin-top-bottom-5- col-xs-12 col-md-12 padding-0">
+                <mark class="form-msg-red">Please respond to the following required questions prior to saving workspace profile.</mark>
+            </label>
+        </div>*@
+
+        <!-- ko with: selectedWs() -->
+        <!-- ko with: WsProfile() -->
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            @Html.Partial("MyEng/RETnRF/_RETnRF_3_Partial")
+        </div>
+        <script type="text/javascript">
+            $(".enableOnEdit").prop("disabled", "disabled");
+        </script>
+        <!-- /ko -->
+        <!-- /ko -->
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    function ShowInitiateClosureWindow() {
+        myApp.showPleaseWait("Initiate Closure - " + viewModel.selectedWs().Name());
+
+        GetDialog(dialogType.DIALOG, dialogSize.XLARGE, "", 'Initiate Closure - ' + viewModel.selectedWs().WsProfile().EngNum())
+                .load('/Workspace/InitiateClosure/?wsId=' + viewModel.selectedWs().ObjectID())
+                .dialog("open");
+
+        //$('#dialog_XL')
+        //    .load('/Workspace/InitiateClosure/?wsId=' + viewModel.selectedWs().ObjectID())
+        //    .dialog('option', 'title', 'Initiate Closure - ' + viewModel.selectedWs().WsProfile().EngNum())
+        //    .dialog('open');
+    }
+
+    function ValidateInitiateClosure() {
+        if (IsNothing(viewModel.selectedWs().WsProfile().EventTrgDate())) {
+            AmAlert(AmMsg.Closure_EventTrgrDateMsg);
+            return false;
+        }
+        return true;
+    }
+
+
+
+    function CheckIfRETExists() {
+        var match = ko.utils.arrayFirst(viewModel.allFiles()(), function (item) {
+            return item.Extn().IsMatch('RET');
+        });
+
+        if (!match) {
+            AmConfirm(AmMsg.Closure_NoRETMsg, ShowInitiateClosureWindow, null, null);
+        }
+        else {
+            ShowInitiateClosureWindow();
+        }
+    }
+
+    function SaveWs() {
+
+        var obj = { 'WsModel': viewModel.selectedWs(), 'PreservationComment': $("#txtPreservationComment").val(), 'RetentionComment': $("#txtRetentionComment").val() };
+
+        $.ajax(
+           {
+               type: 'POST',
+               url: '/api/Workspace/PostUpdateWs',
+               headers: {
+                   'RequestVerificationToken': GetTokenHeaderValue()
+               },
+               dataType: 'json',
+               data: ko.toJSON(obj),
+               contentType: 'application/json; charset=utf-8',
+               success: function (data, textStatus, xhr) {
+                   HandleSuccess("PostUpdateWs", "");
+                   var selectedEngId = viewModel.selectedWs().ObjectID();
+
+                   var match = ko.utils.arrayFirst(viewModel.treeRoot(), function (item) {
+                       return selectedEngId === item.ObjectID();
+                   });
+
+                   var idx = viewModel.treeRoot().indexOf(match);
+
+                   var mappedChildItem = ko.mapping.fromJS(data[0]);
+
+                   viewModel.treeRoot()[idx].WsProfile(mappedChildItem.WsProfile);
+                   viewModel.treeRoot()[idx].WsFldrs(mappedChildItem.WsFldrs);
+                   viewModel.treeRoot()[idx].WsGroups(mappedChildItem.WsGroups);
+
+                   viewModel.treeRoot()[idx].IsLoaded(mappedChildItem.IsLoaded);
+
+                   viewModel.selectedWs(viewModel.treeRoot()[idx]);
+
+               },
+               error: function (jqXHR, textStatus, errorThrown) {
+                   HandleError(jqXHR, textStatus, errorThrown);
+               },
+               beforeSend: function () {
+                   myApp.showPleaseWait("Updating Workspace - " + viewModel.selectedWs().Name());
+               },
+               complete: function () {
+                   myApp.hidePleaseWait();
+                   EditToggle(false);
+               }
+           });
+    }
+
+    function EditToggle(isEditMode) {
+
+        isInEdit = isEditMode;
+
+        if (remote && typeof PostToRemote !== 'undefined' && !IsNothing(remoteApp)) {
+            PostToRemote("edit", isInEdit);
+        }
+
+        if (isEditMode) {
+
+            $("#btnProfileEdit").hide();
+            $("#btnProfileSave").show();
+            $("#btnProfileCancel").show();
+
+            //if (IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q1())
+            //|| IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q2())
+            //|| IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q3())) {
+
+            //    $("#div-req-msg-wsProfile").show();
+            //}
+        }
+        else {
+
+            $("#btnProfileEdit").show();
+            $("#btnProfileSave").hide();
+            $("#btnProfileCancel").hide();
+
+            //$("#div-req-msg-wsProfile").hide();
+        }
+    }
+
+    function ValidatePreservationComment(that) {
+
+        $("#txtPreservationComment").val($("#txtActivityComment").val());
+        $(that).dialog("close");
+
+    }
+
+    function ValidateRetentionComment(that) {
+
+        $("#txtRetentionComment").val($("#txtActivityComment").val());
+        $(that).dialog("close");
+
+    }
+
+    function RetChange() {
+        GetDialog(dialogType.INTERACTION, dialogSize.SMALL, dialogClass.COMMENT, 'Comment')
+          .html(html_comment_Template)
+          .data('okAction', ValidateRetentionComment)
+          .dialog("open");
+
+        $("#txtActivityComment").val($("#txtRetentionComment").val());
+    }
+
+    $(function () {
+
+        $("body").on("click", "#chkIsPre", function () {
+
+            //$("#dmComment")
+            //    .data('okAction', ValidatePreservationComment)
+            //    .dialog('open');
+
+            GetDialog(dialogType.INTERACTION, dialogSize.SMALL, dialogClass.COMMENT, 'Comment')
+              .html(html_comment_Template)
+              .data('okAction', ValidatePreservationComment)
+              .dialog("open");
+
+            $("#txtActivityComment").val($("#txtPreservationComment").val());
+
+        });
+
+        //$("body").on("change", "#txtRetPol", function () {
+
+        //    GetDialog(dialogType.INTERACTION, dialogSize.SMALL, dialogClass.COMMENT, 'Comment')
+        //      .html(html_comment_Template)
+        //      .data('okAction', ValidateRetentionComment)
+        //      .dialog("open");
+
+        //    $("#txtActivityComment").val($("#txtRetentionComment").val());
+
+        //});
+
+        EditToggle(false);
+
+        $("#btnProfileInitiateClosure").click(function () {
+
+            if (IsNothing(viewModel.selectedWs())) {
+                AmAlert("Please select a workspace.");
+                return;
+            }
+
+            if (isInEdit) {
+                AmAlert("Please save or cancel the profile to proceed.");
+                return;
+            }
+
+            //if (IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q1())
+            //|| IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q2())
+            //|| IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q3())) {
+
+            //    AmAlert("Please answer all Third Party Service Provider Questions to proceed.");
+            //}
+            //else if (viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q3().IsMatch("Yes")
+            //    && IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q3_Comment())) {
+
+            //    AmAlert("Please answer Third Party Questionnaire - Comment to proceed.");
+            //}
+            //else
+            //{
+                if (CanTakeAction("Initiate Closure", WhoCanAct.ADMIN_N_MEMBERS, AmMsg.CantTakeAction_Ws_Msg)) {
+
+                    if (ValidateInitiateClosure()) {
+                        //Monika06172015
+                        //Draw_kGrid_S2GuidMap_NonClosedWorkbook();
+                        CheckIfRETExists();
+                    }
+                }
+            //}
+
+        });
+
+        $("#btnProfileEdit").click(function () {
+
+            if (IsNothing(viewModel.selectedWs())) {
+                AmAlert("Please select a workspace.");
+            }
+            else {
+                if (CanTakeAction("Edit", WhoCanAct.ADMIN_N_MEMBERS, AmMsg.CantTakeAction_Ws_Msg)) {
+                    $(".enableOnEdit").prop("disabled", "");
+                    if (viewModel.selectedWs().WsProfile().IsServer2()) {
+                        $("#chkIsS2").prop("disabled", "disabled");
+                    }
+                    EditToggle(true);
+                }
+            }
+
+        });
+
+        $("#btnProfileSave").click(function () {
+
+
+            //if (IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q1())
+            //    || IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q2())
+            //    || IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q3())) {
+
+            //    AmAlert("Please answer all Third Party Service Provider Questions to proceed.");
+
+            //    return false;
+            //}
+            //else if (viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q3().IsMatch("Yes")
+            //    && IsNothing(viewModel.selectedWs().WsProfile().WsProfile_TP.TP_Q3_Comment())) {
+
+            //    AmAlert("Please answer Third Party Questionnaire - Comment to proceed.");
+
+            //    return false;
+            //}
+
+            EditToggle(false);
+            SaveWs();
+        });
+
+        $("#btnProfileCancel").click(function () {
+            EditToggle(false);
+            ReloadWs();
+        });
+
+        $("body").on("click", "#aS2Link", function () {
+
+            GetDialog(dialogType.DIALOG, dialogSize.XLARGE, "", 'Link eAudIT Engagement ID to workspace - ' + viewModel.selectedWs().WsProfile().EngNum())
+                .load('/Workspace/S2Link')
+                .dialog("open");
+
+            //$('#dialog_XL')
+            //    .load('/Workspace/S2Link')
+            //    .dialog('option', 'title', 'Link eAudIT Engagement ID to workspace - ' + viewModel.selectedWs().WsProfile().EngNum())
+            //    .dialog('open');
+
+        });
+
+        $("body").on("click", "#chkIsS2", function () {
+            viewModel.selectedWs().WsProfile().IsServer2(false);
+
+            GetDialog(dialogType.DIALOG, dialogSize.XLARGE, "", 'Link eAudIT Engagement ID to workspace - ' + viewModel.selectedWs().WsProfile().EngNum())
+                .load('/Workspace/S2Link')
+                .dialog("open");
+
+            //$('#dialog_XL')
+            //    .load('/Workspace/S2Link')
+            //    .dialog('option', 'title', 'Link eAudIT Engagement ID to workspace - ' + viewModel.selectedWs().WsProfile().EngNum())
+            //    .dialog('open');
+
+        });
+
+    });
+
+</script>

@@ -1,0 +1,59 @@
+﻿<!-- ko with: selectedWs() -->
+<!-- ko with: WsProfile() -->
+
+<div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+    <input type="hidden" id="hid_PartnerDesc_Email" name="hid_PartnerDesc_Email" data-bind="value: PartnerDesc.Email()" />
+    <input type="hidden" id="hid_PartnerDesc_Name" name="hid_PartnerDesc_Name" data-bind="value: PartnerDesc.Name()" />
+
+    <input type="hidden" id="hid_ManagerDesc_Email" name="hid_ManagerDesc_Email" data-bind="value: ManagerDesc.Email()" />
+    <input type="hidden" id="hid_ManagerDesc_Name" name="hid_ManagerDesc_Name" data-bind="value: ManagerDesc.Name()" />
+    
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <label class="control-label col-xs-3 col-md-3 padding-0" for="txtClient">
+            Client Name:
+        </label>
+        <div class="col-xs-3 col-md-3 padding-0">
+            <input class="form-control" id="txtClient" name="txtClient" type="text" data-bind="value: ClientDesc()" disabled>
+        </div>
+
+        <label class="control-label col-xs-3 col-md-3  padding-left-10" for="txtClientNbr">
+            Client Number:
+        </label>
+        <div class="col-xs-3 col-md-3 padding-0">
+            <input class="form-control" id="txtClientNbr" name="txtClientNbr" type="text" data-bind="value: Client()" disabled>
+        </div>
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <label class="control-label col-xs-3 col-md-3 padding-0" for="txtEngName">
+            Engagement Name:
+        </label>
+        <div class="col-xs-3 col-md-3 padding-0">
+            <input class="form-control" id="txtEngName" name="txtEngName" type="text" data-bind="value: $parent.Name()" disabled>
+        </div>
+        <label class="control-label col-xs-3 col-md-3 padding-left-10" for="txtEngNum">
+            Engagement Number:
+        </label>
+        <div class="col-xs-3 col-md-3 padding-0">
+            <input class="form-control" id="txtEngNum" name="txtEngNum" type="text" data-bind="value: EngNum()" disabled>
+        </div>
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <label class="control-label col-xs-3 col-md-3 padding-0" for="txtPreservation">
+            WS under preservation?
+        </label>
+        <div class="col-xs-3 col-md-3 padding-0">
+            <input autofocus class="form-control" id="txtPreservation" name="txtPreservation" type="text" data-bind="value: IsUnderPreservation() ? 'Under Preservation' : 'Not Under Preservation'" disabled>
+        </div>
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <p class="margin-top-bottom-5">Note: The status above reflects the current preservation status for this engagement file in DRMS. To change this status please navigate to the "Workspace Profile" tab.</p>
+    </div>
+
+</div>
+
+<!-- /ko -->
+<!-- /ko -->

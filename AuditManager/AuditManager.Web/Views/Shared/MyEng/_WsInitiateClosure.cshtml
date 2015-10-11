@@ -1,0 +1,398 @@
+﻿<script type="text/javascript">
+    var largeRetentionFileArray = ko.observableArray();
+    function Init_LargeRetentionFile() {
+
+        ko.applyBindings(largeRetentionFileArray, document.getElementById("div-largeRetentionFile"));
+
+        $("#btnAddLargeRetentionFile").click(function () {
+
+            var txtLargeRetentionFile = $("#txtLargeRetentionFile").val().trim();
+
+            if (txtLargeRetentionFile.length == 0) {
+                AmAlert("Please enter Large Retention File name to add.");
+                return false;
+            }
+
+            if (largeRetentionFileArray.indexOf(txtLargeRetentionFile) == -1) {
+                if (txtLargeRetentionFile.indexOf(",") == -1) {
+                    largeRetentionFileArray.push(txtLargeRetentionFile);
+                    $("#txtLargeRetentionFile").val("");
+                }
+                else {
+                    AmAlert("Comma(,) is an invalid character in Large Retention File name.");
+                    return false;
+                }
+            }
+            else {
+                AmAlert("Large Retention File name already added.");
+                return false;
+            }
+
+        });
+
+        $("body").on("click", ".remLargeRetentionFile", function (e) {
+            largeRetentionFileArray.remove($(this).attr("id"));
+        });
+
+    }
+</script>
+<form id="frmInitiateClosure">
+    @Html.AntiForgeryToken()
+    <div class="container-fluid padding-0">
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+            <!-- ko with: selectedWs() -->
+            <!-- ko with: WsProfile() -->
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-3 col-md-3 padding-0" for="txtEngName">
+                    Engagement Name
+                </label>
+                <div class="col-xs-3 col-md-3 padding-0">
+                    <input class="form-control" id="txtEngName" name="txtEngName" type="text" data-bind="value: $parent.Name()" disabled>
+                </div>
+                <label class="control-label col-xs-3 col-md-3 padding-left-10" for="txtTrDt">
+                    Event Trigger Date for this workspace closure
+                </label>
+                <div class="col-xs-3 col-md-3 padding-0">
+                    <input class="form-control" id="txtTrDt" name="txtTrDt" type="text" data-bind="date: EventTrgDate()" disabled>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-3 col-md-3 padding-0 checkbox-margin-niu" for="chkIsPre">
+                    Is any information in this workspace subject to preservation?
+                </label>
+                <div class="col-xs-3 col-md-3 padding-0 checkbox-margin-niu">
+                    <input id="chkIsPre" name="chkIsPre" type="checkbox" data-bind="checked: IsUnderPreservation()" disabled>
+                </div>
+                <label class="control-label col-xs-3 col-md-3 padding-left-10 checkbox-margin-niu" for="chkIsRetSvr">
+                    Do you have files located on the Large File Retention Server?
+                </label>
+                <div class="col-xs-3 col-md-3 padding-0 checkbox-margin-niu">
+                    <input id="chkIsRetSvr" name="chkIsRetSvr" type="checkbox" data-bind="checked: IsKDrive()" disabled>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-3 col-md-3 padding-0" for="txtAComment">
+                    Add notes re: this workspace closure (max 500 characters)
+                    <br />
+                    <span><a href="#" class="aPrevComments amLink" id="aPrevComments">Previous Comments</a></span>
+                </label>
+                <div class="col-xs-9 col-md-9 padding-0">
+                    <textarea class="form-control textarea-resize" rows="3" name="txtAComment" id="txtAComment" maxlength="500"></textarea>
+                </div>
+            </div>
+
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+                <!-- ko if: viewModel.allFiles()().length > 0 -->
+                <div id="kGrid_InitiateClosure" class="kGrid" data-bind="kendoGrid: {
+                        data: viewModel.allFiles,
+                        sortable: true,
+                        scrollable: true,
+                        pageable: {
+                                        numeric: false,
+                                        previousNext: false,
+                                        refresh: false,
+                                        pageSizes: false,
+                                        messages: {
+                                            display: '{2} items',
+                                        }
+                                    },
+
+                        dataBound: function(e){
+                                //alert('kGrid_InitiateClosure');
+                                SetGridSize('kGrid_InitiateClosure');
+                            },
+
+                        columns: [
+                        {
+                            title: 'Associate with this closure? <br /\> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id=\'chkClsrAll\' name=\'chkClsrAll\' type=\'checkbox\' class=\'chkAll\' title=\'Select or deselect All\' >  <img class=\'toolTipImg\' src=\'/Content/images/info.png\' title=\'Select or deselect All\' /\>',
+                            template: '<input id=\'chkClsrFile\' name=\'chkClsrFile\'  class=\'chkClsrFile\' type=\'checkbox\'  data-bind=\'checked: #=IsIncludedInClosure#\' #=ToIncludeInClosure2(FilePath)# >',
+                            headerAttributes: {style: 'text-align: center;'},
+                            attributes: {style: 'text-align: center;'},
+                            width: GetGridColWidth(gridColWidth.PT20, 'kGrid_InitiateClosure'),
+                        },
+
+                        {
+                            title: 'File Name',
+                            field: 'Description',
+                            template: '# if(IsRecord){# #=GetRecordControl(RecordUser, RecordDate) # #} # #=GetLongTextToolTip(Description.FileWithExtn(Extn), GetRemoteSize(100), FilePath + \'/\')#',
+                            width: GetGridColWidth(gridColWidth.PT50, 'kGrid_InitiateClosure'),
+                        },
+                        {
+                            title: 'Status',
+                            field: 'DocumentStatus',
+                            template: '#=GetDocumentStatus(DocumentStatus)#',
+                            width: GetGridColWidth(gridColWidth.PT20, 'kGrid_InitiateClosure'),
+                        },
+                        {
+                            title: '',
+                            template: '#=GetFileMenu(DocumentStatus, Extn, \'kGrid_InitiateClosure\')#',
+                            width: GetGridColWidth(gridColWidth.FIXED, 'kGrid_InitiateClosure'),
+                        },
+                        ]
+                    }">
+
+                </div>
+
+                <!-- /ko -->
+
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <!-- ko ifnot: viewModel.allFiles()().length > 0 -->
+                <div data-bind="html: ShowMsg(AmMsgType.Info, AmMsg.NoFile )"></div>
+                <!-- /ko -->
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <div class="float-right padding-0">
+                    <button id="btnInitiateClosureSubmit" class="btn btn-primary btn-xs" type="button">
+                        <i class='glyphicon glyphicon-ok'></i> Submit
+                    </button>
+                    <button id="btnInitiateClosureCancel" class="btn btn-primary btn-xs" type="button">
+                        <i class='glyphicon glyphicon-remove'></i> Cancel
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        ko.applyBindings(viewModel, document.getElementById("frmInitiateClosure"));
+    });
+
+    function AddRetentionWindow() {
+
+        GetDialog(dialogType.DIALOG, dialogSize.AUTO_HEIGHT_LARGE_WIDTH, "", 'Add Large Retention File')
+              .html(html_largeRetentionFile_Template)
+              .data('openAction', Init_LargeRetentionFile)
+              .dialog("open");
+    }
+
+    function ProcessClosure() {
+
+        if (largeRetentionFileArray().length == 0 && $('.chkClsrFile:checkbox:checked').length == 0) {
+            AmAlert(AmMsg.Closure_NoFileSelectedMsg);
+            return;
+        }
+        else {
+            AmConfirm(AmMsg.Closure_ConfirmMsg, ValidateClosure, null, null);
+        }
+    }
+
+    function ValidateClosure() {
+
+        var isValid = true;
+
+        $('.chkClsrFile:checkbox:checked').each(function (idx, item) {
+
+            var row = $(this).closest("tr");
+            var grid = $("#" + "kGrid_InitiateClosure").data("kendoGrid");
+            var dataItem = grid.dataItem(row);
+
+            if (!IsNothing(dataItem.DocumentStatus)) {
+
+                if (dataItem.DocumentStatus.Status.IsMatch('Pending Approval')) {
+                    isValid = false;
+                    AmAlert(AmMsg.Closure_PendingAcknowledgeMsg);
+                    return false;
+                }
+            }
+        });
+
+        if (isValid) {
+            DoClosure();
+        }
+    }
+
+    function DoClosure() {
+
+        var grid = $("#" + "kGrid_InitiateClosure").data("kendoGrid");
+
+        $('.chkClsrFile:checkbox:checked').each(function (idx, item) {
+
+            var row = $(this).closest("tr");
+            var dataItem = grid.dataItem(row);
+            var selectedFileId = dataItem.ObjectID;
+
+            var match = ko.utils.arrayFirst(viewModel.allFiles()(), function (item) {
+                return selectedFileId === item.ObjectID();
+            });
+
+            match.IsIncludedInClosure(true);
+
+        });
+
+        var obj = { 'WsModel': viewModel.selectedWs(), 'Comment': $("#txtAComment").val(), 'LargeRetFiles': largeRetentionFileArray() };
+
+        $.ajax(
+        {
+            type: 'POST',
+            url: '/api/Workspace/PostInitiateClosure',
+            headers: {
+                'RequestVerificationToken': GetTokenHeaderValue()
+            },
+            dataType: 'json',
+            data: ko.toJSON(obj),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data, textStatus, xhr) {
+
+                //$('#dialog_XL').dialog('close');
+                CloseMyDialog();
+
+                HandleSuccess("PostInitiateClosure", "");
+
+                //
+                var selectedEngId = viewModel.selectedWs().ObjectID();
+
+                var match = ko.utils.arrayFirst(viewModel.treeRoot(), function (item) {
+                    return selectedEngId === item.ObjectID();
+                });
+
+                var idx = viewModel.treeRoot().indexOf(match);
+
+                var mappedChildItem = ko.mapping.fromJS(data[0]);
+
+                viewModel.treeRoot()[idx].WsProfile(mappedChildItem.WsProfile);
+
+                viewModel.treeRoot()[idx].WsFldrs(mappedChildItem.WsFldrs);
+                viewModel.treeRoot()[idx].WsGroups(mappedChildItem.WsGroups);
+
+                viewModel.treeRoot()[idx].IsLoaded(mappedChildItem.IsLoaded);
+
+                viewModel.selectedWs(viewModel.treeRoot()[idx]);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                HandleError(jqXHR, textStatus, errorThrown);
+            },
+            beforeSend: function () {
+                myApp.showPleaseWait("Processing Closure - " + viewModel.selectedWs().Name());
+            },
+            complete: function () {
+                myApp.hidePleaseWait();
+                largeRetentionFileArray.removeAll();
+            }
+        });
+    }
+
+    $("#btnInitiateClosureSubmit").click(function () {
+
+        if (viewModel.selectedWs().WsProfile().IsKDrive() && largeRetentionFileArray().length == 0) {
+
+            AmConfirm(AmConfirmMsg.ToAddRetentionFile, AddRetentionWindow, ProcessClosure, null);
+
+            return;
+        }
+        else {
+            ProcessClosure();
+        }
+    });
+
+    $("#btnInitiateClosureCancel").click(function () {
+        //$('#dialog_XL').dialog('close');
+        CloseMyDialog(this);
+    });
+
+    $("form").on("click", "#aPrevComments", function () {
+
+
+        $.ajax(
+        {
+            type: 'GET',
+            url: '/api/Workspace/GetClosureComment?engNum=' + viewModel.selectedWs().WsProfile().EngNum(),
+            headers: {
+                'RequestVerificationToken': GetTokenHeaderValue()
+            },
+            success: function (data, textStatus, xhr) {
+
+                var strHtml = "";
+                if (data === null || data.length == 0) {
+                    strHtml = "<p>No previous comments to show.</p>";
+                }
+                else {
+                    $.each(data, function (idx, item) {
+                        strHtml = strHtml + "<fieldset class='fsClosureComment'>" +
+                                                "<legend>" +
+                                                item.UserId + " " + item.DateCreated.ToDate() +
+                                                "</legend>" +
+                                                "<p>" +
+                                                item.Comment +
+                                                "</p>" +
+                                            "</fieldset>";
+                    });
+                };
+
+                GetDialog(dialogType.DIALOG_ONLY_CLOSE, dialogSize.MEDIUM, dialogClass.DISPLAY_COMMENT)
+                    .html(strHtml)
+                    .dialog('open');
+
+                //$("#dmDynamicContent").dialog({
+
+                //    dialogClass: "no-title no-padding-no-min-height-dialog-12 no-padding-no-min-height-content-12",
+                //    autoOpen: true,
+                //    resizable: false,
+                //    draggable: false,
+                //    modal: true,
+                //    maxHeight: 300,
+                //    minWidth: 500,
+
+                //    buttons: {
+                //        Close: function () {
+                //            $(this).dialog("close");
+                //        }
+                //    },
+                //    open: function () {
+
+
+
+                //        $("#dmDynamicContent").html(strHtml);
+                //    }
+                //});
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                HandleError(jqXHR, textStatus, errorThrown);
+            },
+            beforeSend: function () {
+                myApp.showPleaseWait("Retrieving Closure comments.");
+            },
+            complete: function () {
+                myApp.hidePleaseWait();
+            }
+        });
+    });
+
+    $("form").on("click", ".chkAll", function (e) {
+        if ($(this).prop("checked")) {
+            $.each($(".chkClsrFile"), function (idx, item) {
+                if (!($(item).prop("disabled"))) {
+                    $(item).prop("checked", true);
+                }
+            })
+        }
+        else {
+            $(".chkClsrFile").prop("checked", false);
+        }
+    });
+
+</script>
+

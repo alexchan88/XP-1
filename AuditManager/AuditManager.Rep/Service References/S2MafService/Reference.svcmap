@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="63d1fc87-3d42-43d2-bdf9-f5f6525e6b8c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://useomapd1221.us.kworld.kpmg.com:8002/MAFService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MAFService.xsd" MetadataType="Schema" ID="f14cdfb4-e2fb-409d-b2e9-f4b81e95a7f2" SourceId="1" SourceUrl="http://useomapd1221.us.kworld.kpmg.com:8002/MAFService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MAFService.wsdl" MetadataType="Wsdl" ID="86f11ef7-3b72-4411-9ab0-dca984a17988" SourceId="1" SourceUrl="http://useomapd1221.us.kworld.kpmg.com:8002/MAFService.svc?wsdl" />
+    <MetadataFile FileName="MAFService1.xsd" MetadataType="Schema" ID="dd919062-de86-48c7-95b2-79ff08668d5f" SourceId="1" SourceUrl="http://useomapd1221.us.kworld.kpmg.com:8002/MAFService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MAFService2.xsd" MetadataType="Schema" ID="1bb41de6-aee4-4411-9373-1ea2993cb71b" SourceId="1" SourceUrl="http://useomapd1221.us.kworld.kpmg.com:8002/MAFService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

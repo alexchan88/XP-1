@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/bundles/css")
+    @Styles.Render("~/bundles/cssBootstrap")
+    <link type="text/css" rel="stylesheet" href="~/Content/kendo/2014.1.318/kendo.common.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/kendo/2014.1.318/kendo.default.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/app/AppCommon.css" />
+
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/bundles/jqueryval_1")
+    @*@Scripts.Render("~/bundles/jqueryval_2")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/ko")
+    @Scripts.Render("~/bundles/jquery-ui")
+
+    
+    <script type="text/javascript" src="~/Scripts/kendo/2014.1.318/kendo.web.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/knockout-kendo.js"></script>
+    <script type="text/javascript" src="~/Scripts/App/AppCommon.js"></script>
+    
+
+    
+
+</head>
+<body>
+
+    <div class="container-fluid padding-0">
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <header class="navbar-wrapper navbar-default navbar-fixed-top">
+                <div class="col-xs-2 col-md-2 padding-0"><img class="img-width-100" src="~/Content/images/audit_manager.png" /></div>
+                <div class="col-xs-10 col-md-10 padding-0"><img class="img-width-100" src="~/Content/images/bg.png" /></div>
+            </header>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            @RenderBody()
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <footer class="navbar navbar-default navbar-fixed-bottom">
+                <div class="padding-top-15 txt-align-center">
+                    <span>If you have any questions, contact the National Support Center at 1-800-KPMG-HELP, or you can double-click the ITS Support icon</span>
+                    <img src="~/Content/images/ITSSupportCenterLogo_New.png" />
+                    <span> in the bottom right corner of your desktop.</span>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    
+</body>
+</html>

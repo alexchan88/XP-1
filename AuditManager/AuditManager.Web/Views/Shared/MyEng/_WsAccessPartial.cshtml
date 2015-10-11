@@ -1,0 +1,266 @@
+﻿<div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+    <div class="row-fluid col-xs-12 col-md-12 rowSpacing-2">
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <label id="lblCollapseToggle" class="control-label col-xs-6 col-md-6 padding-0 float-left txt-align-left toggle-link">
+            Collapse All Groups
+        </label>
+
+        <label id="lblusrAccessHelp" class="control-label col-xs-6 col-md-6 padding-0 float-right txt-align-right toggle-link">
+            Help <i class='glyphicon glyphicon-info-sign'></i>
+        </label>
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 rowSpacing-2">
+    </div>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0" data-bind="with: selectedWs()">
+        <div class="panel-group access-panel" id="access-grp">
+            <div data-bind="template: { name: 'treeAccessGrp', foreach: $data.WsGroups() }"></div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var selectedGrp = '';
+    var active = false;
+    var usrIdInOtherGrp = false;
+
+    $(function () {
+
+        $("#lblusrAccessHelp").click(function () {
+
+            var html_Help = '<div id="kGrid_Access_Help" class="kGrid"></div>';
+
+            GetDialog(dialogType.DIALOG, dialogSize.MEDIUM, "", 'Help')
+                .html(html_Help)
+                .data('openAction', Draw_kGrid_Access_Help)
+                .dialog("open");
+
+        })
+
+        $("#lblCollapseToggle").click(function () {
+
+            if (active) {
+                active = false;
+                $('.panel-collapse').collapse('show');
+                $('.panel-title').attr('data-toggle', '');
+                $(this).text('Collapse All Groups');
+            } else {
+                active = true;
+                $('.panel-collapse').collapse('hide');
+                $('.panel-title').attr('data-toggle', 'collapse');
+                $(this).text('Expand All Groups');
+            }
+        })
+
+        
+
+        
+
+    })
+
+    $("body").on("click", ".grp", function (e) {
+
+        if (CanTakeAction("Add User", WhoCanAct.ONLY_ADMIN, AmMsg.CantTakeAction_UsrMgmt_Msg)) {
+            selectedGrp = $(this).prop("id");
+
+            //$('#dmUsrMgmt')
+            //    .dialog('option', 'title', 'Search and Add User to ' + UsrGrpNameToDisplay(selectedGrp))
+            //    .dialog('open');
+
+            
+
+            GetDialog(dialogType.DIALOG, dialogSize.LARGE, "", 'Search and Add User to ' + UsrGrpNameToDisplay(selectedGrp))
+                .html(html_userSearch_Template)
+                .dialog("open");
+
+            $("#btnUsrMgmtSearch").click(function () {
+                $("#kGrid_Access_SearchUser_Top").empty();
+                $("#kGrid_Access_SearchUser_Top").append('<div id="kGrid_Access_SearchUser" class="kGrid"></div>');
+                SearchUsr();
+            })
+
+            $("#btnUsrMgmtCancel").click(function () {
+                //$('#dmUsrMgmt').dialog('close');
+                
+                CloseMyDialog(this);
+            })
+
+            $("#txtLName").keyup(function () {
+                if ($("#txtLName").val().trim().length > 0 || $("#txtFName").val().trim().length > 0) {
+                    $("#txtEmail").prop('disabled', true);
+                }
+                else {
+                    $("#txtEmail").prop('disabled', false);
+                }
+            });
+
+            $("#txtFName").keyup(function () {
+                if ($("#txtLName").val().trim().length > 0 || $("#txtFName").val().trim().length > 0) {
+                    $("#txtEmail").prop('disabled', true);
+                }
+                else {
+                    $("#txtEmail").prop('disabled', false);
+                }
+            });
+
+            $("#txtEmail").keyup(function () {
+                if ($("#txtEmail").val().trim().length > 0) {
+                    $("#txtLName").prop('disabled', true);
+                    $("#txtFName").prop('disabled', true);
+                }
+                else {
+                    $("#txtLName").prop('disabled', false);
+                    $("#txtFName").prop('disabled', false);
+                }
+            });
+        }
+
+    })
+
+    $("body").on("click", ".usr", function (e) {
+
+        usrIdInOtherGrp = false;
+
+        if (CanTakeAction("Delete User", WhoCanAct.ONLY_ADMIN, AmMsg.CantTakeAction_UsrMgmt_Msg)) {
+
+            selectedGrp = $(this).prop("id").SplitNGet("-", 0);
+            var usrIdToRemove = $(this).prop("id").SplitNGet("-", 1);
+
+            $.each(viewModel.selectedWs().WsGroups()(), function (idx, item) {
+
+                if (item.Name() !== selectedGrp) {
+
+                    $.each(item.GrpUsers(), function (idx2, item2) {
+
+                        if (item2.Name() == usrIdToRemove) {
+                            usrIdInOtherGrp = true;
+
+                            return false;
+                        }
+
+                    });
+                }
+
+                if (usrIdInOtherGrp) {
+
+                    return false;
+                }
+
+            })
+
+            var confirmMsg = "Are you sure you want to remove " + usrIdToRemove + " from the " + UsrGrpNameToDisplay(selectedGrp) + "?";
+
+            if (!usrIdInOtherGrp) {
+                confirmMsg = confirmMsg + "<br>";
+                confirmMsg = confirmMsg + "This is the only workspace group to which the user belongs. ";
+                confirmMsg = confirmMsg + "<br>";
+                confirmMsg = confirmMsg + "Removing the user from this group will revoke the user’s access to this workspace. ";
+                confirmMsg = confirmMsg + "<br>";
+                confirmMsg = confirmMsg + "Are you sure you want to revoke user's access?";
+            }
+
+            AmConfirm(confirmMsg, RemoveUsrFromGrp, null, usrIdToRemove, null);
+
+        }
+
+    })
+
+    function RemoveUsrFromGrp(usrIdToRemove) {
+        $.ajax(
+        {
+            type: 'PUT',
+            async: false,
+            url: '/api/WsUsrMgmt/PutRemoveUsrFromGrp?num=' + viewModel.selectedWs().WsProfile().EngNum() + '&wsId=' + viewModel.selectedWs().ObjectID() + '&grpName=' + selectedGrp + '&usrIdToRemove=' + usrIdToRemove + '&imDbType=' + 'Active',
+            headers: {
+                'RequestVerificationToken': GetTokenHeaderValue()
+            },
+            success: function (data, textStatus, xhr) {
+
+                var match = ko.utils.arrayFirst(viewModel.selectedWs().WsGroups()(), function (item) {
+                    return selectedGrp === item.Name();
+                });
+
+                if (match != null) {
+
+                    var match2 = ko.utils.arrayFirst(match.GrpUsers(), function (item) {
+                        return usrIdToRemove === item.Name();
+                    });
+
+                    if (match2 != null) {
+
+                        var idx = viewModel.selectedWs().WsGroups()().indexOf(match);
+                        var idx2 = viewModel.selectedWs().WsGroups()()[idx].GrpUsers().indexOf(match2);
+
+                        viewModel.selectedWs().WsGroups()()[idx].GrpUsers.remove(match2);
+                    }
+                }
+
+                HandleSuccess("RemoveUser-" + UsrGrpNameToDisplay(selectedGrp) + "_" + usrIdToRemove + "_" + usrIdInOtherGrp, "");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                HandleError(jqXHR, textStatus, errorThrown);
+            },
+            beforeSend: function () {
+                myApp.showPleaseWait("Removing User - " + usrIdToRemove);
+            },
+            complete: function () {
+                myApp.hidePleaseWait();
+            }
+        });
+    }
+
+    function SearchUsr() {
+
+        Draw_kGrid_Access_SearchUser();
+
+    }
+
+    function AddUsrToGrp(usrIdToAdd) {
+        $.ajax(
+        {
+            type: 'POST',
+            async: false,
+            url: '/api/WsUsrMgmt/PostAddUsrToGrp?num=' + viewModel.selectedWs().WsProfile().EngNum() + '&wsId=' + viewModel.selectedWs().ObjectID() + '&grpName=' + selectedGrp + '&usrIdToAdd=' + usrIdToAdd + '&imDbType=' + 'Active',
+            headers: {
+                'RequestVerificationToken': GetTokenHeaderValue()
+            },
+            success: function (data, textStatus, xhr) {
+
+                newSession = true;
+                if (isInEdit) {
+                    internalReload = true;
+                }
+                ReloadWs("From_UsrMgmt");
+                if (internalReload) {
+                    //alert(isInEdit);
+                    internalReload = false;
+                    isInEdit = false;
+                    EditToggle(false);
+                }
+
+                //$('#dmUsrMgmt').dialog('close');
+                CloseMyDialog();
+
+                $("#myEngTab").tabs("option", { active: 2 });
+
+                HandleSuccess("AddUser-" + UsrGrpNameToDisplay(selectedGrp) + "_" + usrIdToAdd, "");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                HandleError(jqXHR, textStatus, errorThrown);
+            },
+            beforeSend: function () {
+                myApp.showPleaseWait("Adding User - " + usrIdToAdd);
+            },
+            complete: function () {
+                myApp.hidePleaseWait();
+            }
+        });
+    }
+
+</script>

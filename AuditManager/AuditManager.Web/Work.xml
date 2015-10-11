@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Work>
+  <WorkItem Name="AuditManager">
+    <WorkItem Name="IManageApi">
+      <Item Name="Design" Days="4" />
+      <Item Name="IManage Session Management" Days="4" />
+      <Item Name="Create Engagement" Days="1" />
+      <Item Name="Engagement Object" Days="1" />
+      <Item Name="Engagement Profile" Days="1" />
+      <Item Name="Engagement Security" Days="2" />
+      <Item Name="User Management" Days="2" />
+      <Item Name="Upload Document" Days="2" />
+      <Item Name="Miscellaneous Operations" Days="5" />
+      <Item Name="Exception Handling" Days="2" />
+    </WorkItem>
+    <WorkItem Name="Security">
+      <Item Name="Overall Site Security" Days="10" />
+    </WorkItem>
+    <WorkItem Name="UI">
+      <Item Name="Change as Api is Changing and Some security change" Days="10" />
+    </WorkItem>
+    <WorkItem Name="Object">
+      <Item Name="Change as Api is Changing and Some security change" Days="2" />
+    </WorkItem>
+  </WorkItem>
+  <WorkItem Name="SSC">
+    <Item Name="RE-Write DB" Days="20" />
+    <Item Name="RE-Write Will Change some UI" Days="5" />
+  </WorkItem>
+  <WorkItem Name="Elmah">
+    <Item Name="Common DB" Days="5" />
+    <Item Name="Custon UI" Days="5" />
+  </WorkItem>
+</Work>

@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout/_Layout_ManUniGrp.cshtml";
+}
+
+<h2 style="text-align:center;">Manage Universal Groups</h2>
+
+<div class="container-fluid padding-0">
+    <div class="row-fluid">
+        <div class="col-md-offset-3 col-xs-3 col-md-3">
+            <select class="form-control" id="txtGrp" name="txtGrp" size="20"
+                    data-bind="options: vmGrpNUser.root(),
+                               optionsText: 'FullName',
+                               optionsValue: 'FullName',
+                               value: 'FullName'"></select>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <select class="form-control" id="txtUsr" name="txtUsr" size="20"
+                    data-bind="options: vmGrpNUser.selectedBranch().GrpUsers(),
+                               optionsText: 'FullName',
+                               optionsValue: 'FullName',
+                               value: 'FullName'"></select>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var vmGrpNUser = {
+        root: ko.observableArray(),
+        selectedBranch: ko.observable(),
+    }
+
+    //$.ajaxSetup({ scriptCharset: "utf-8", contentType: "application/json; charset=utf-8" });
+
+    $.getJSON("/api/Workspace/GetGrpNUser/?imDbType=Active", function (data) {
+
+        var mappedRoot = ko.mapping.fromJS(data);
+        vmGrpNUser.root(mappedRoot());
+    })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            HandleError(jqXHR, textStatus, errorThrown);
+        });
+
+
+    $("#txtGrp").change(function () {
+
+        var selVal = $(this).val();
+
+        var match = ko.utils.arrayFirst(vmGrpNUser.root(), function (item) {
+            return selVal === item.FullName();
+        });
+
+        var idx = vmGrpNUser.root().indexOf(match);
+
+        vmGrpNUser.selectedBranch(vmGrpNUser.root()[idx]);
+
+    });
+
+    ko.applyBindings(vmGrpNUser);
+
+</script>

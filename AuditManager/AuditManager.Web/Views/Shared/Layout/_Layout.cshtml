@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Audit Manager</title>
+    @Styles.Render("~/bundles/css")
+    @Styles.Render("~/bundles/cssBootstrap")
+    @Styles.Render("~/bundles/cssKendo")
+    @Styles.Render("~/bundles/cssApp")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval_1")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/ko")
+    @Scripts.Render("~/bundles/jquery-ui")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/kendoKo")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/app_Local")
+
+</head>
+
+<body>
+
+    <div id="div-top" class="container-fluid padding-0">
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+            @*<div id="div-header" class="row-fluid col-xs-12 col-md-12 padding-0 header-dimension">
+                    <header class="navbar-wrapper navbar-default navbar-fixed-top">
+                        <div class="col-xs-2 col-md-2 padding-0"><img class="header-img-dimension" src="~/Content/images/audit_manager.png" /></div>
+                        <div class="col-xs-10 col-md-10 padding-0"><img class="header-img-dimension" src="~/Content/images/bg.png" /></div>
+                    </header>
+                </div>*@
+
+            <div id="div-header" class="row-fluid col-xs-12 col-md-12 padding-0 header-dimension">
+                <div class="col-xs-2 col-md-2 padding-0"><img class="header-img-dimension" src="~/Content/images/audit_manager.png" /></div>
+                <div class="col-xs-10 col-md-10 padding-0"><img class="header-img-dimension" src="~/Content/images/bg.png" /></div>
+            </div>
+
+            <div id="div-body" class="row-fluid col-xs-12 col-md-12 padding-0 content-dimension">
+                @RenderBody()
+            </div>
+
+            <div id="div-footer" class="row-fluid col-xs-12 col-md-12 padding-0 footer-dimension">
+                <div class="padding-top-15 txt-align-center">
+                    <span>If you have any questions, contact the National Support Center at 1-800-KPMG-HELP, or you can double-click the KTech-Fusion icon </span>
+                    <img src="~/Content/images/ITSSupportCenterLogo_New.png" />
+                    <span> in the bottom of your desktop.</span>
+                    @*<span> in the bottom right corner of your desktop.</span>*@
+                </div>
+            </div>
+
+            @*<div id="div-footer" class="row-fluid col-xs-12 col-md-12 padding-0 footer-dimension">
+                    <footer class="navbar navbar-default navbar-fixed-bottom">
+                        <div class="padding-top-15 txt-align-center">
+                            <span>If you have any questions, contact the National Support Center at 1-800-KPMG-HELP, or you can double-click the ITS Support icon</span>
+                            <img src="~/Content/images/ITSSupportCenterLogo.png" />
+                            <span> in the bottom right corner of your desktop.</span>
+                        </div>
+                    </footer>
+                </div>*@
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+
+</script>
+
+<script id="largeRetentionFile_Template" type="text/html">
+
+    <div id="div-largeRetentionFile" class="row-fluid col-xs-12 col-md-12 padding-0">
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <div class="col-xs-12 col-md-12 padding-0">
+                <div data-bind="template: { name: 'largeRetentionFileTemp', foreach: largeRetentionFileArray }"></div>
+            </div>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <div class="col-xs-9 col-md-9 padding-0">
+                <input class="form-control float-left" id="txtLargeRetentionFile" name="txtLargeRetentionFile" type="text">
+            </div>
+            <div class="col-xs-3 col-md-3 padding-0">
+                <button id="btnAddLargeRetentionFile" type="button" class="btn btn-primary btn-xs float-right">
+                    <i class="glyphicon glyphicon-plus"></i> Add Large Retention File
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @*<script type="text/javascript">
+
+        $(function () {
+            ko.applyBindings(largeRetentionFileArray, document.getElementById("div-largeRetentionFile"));
+        });
+
+        $("#btnAddLargeRetentionFile").click(function () {
+
+            var txtLargeRetentionFile = $("#txtLargeRetentionFile").val().trim();
+
+            if (txtLargeRetentionFile.length == 0) {
+                AmAlert("Please enter Large Retention File name to add.");
+                return false;
+            }
+
+            if (largeRetentionFileArray.indexOf(txtLargeRetentionFile) == -1) {
+                if (txtLargeRetentionFile.indexOf(",") == -1) {
+                    largeRetentionFileArray.push(txtLargeRetentionFile);
+                    $("#txtLargeRetentionFile").val("");
+                }
+                else {
+                    AmAlert("Comma(,) is an invalid character in Large Retention File name.");
+                    return false;
+                }
+            }
+            else {
+                AmAlert("Large Retention File name already added.");
+                return false;
+            }
+
+        });
+
+        $("body").on("click", ".remLargeRetentionFile", function (e) {
+
+            largeRetentionFileArray.remove($(this).attr("id"));
+        });
+
+    </script>*@
+
+</script>
+
+<script id="comment_Template" type="text/html">
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <label class="control-label col-xs-4 col-md-4 padding-2" for="txtActivityComment">
+            Comments<br />
+            (max. 1000 characters)
+        </label>
+        <div class="col-xs-8 col-md-8 padding-2">
+            <textarea class="form-control textarea-resize" rows="8" cols="50" name="txtActivityComment" id="txtActivityComment" maxlength="1000"></textarea>
+        </div>
+    </div>
+</script>
+
+<script id="userSearch_Template" type="text/html">
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-1">
+            <p>
+                Enter user’s full last name and first name OR the e-mail address, and select the Search button.
+            </p>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-1">
+            <div class="col-xs-6 col-md-6  padding-1">
+                <input class="form-control" id="txtLName" name="txtLName" type="text" placeholder="Last Name">
+            </div>
+            <div class="col-xs-6 col-md-6  padding-1">
+                <input class="form-control" id="txtFName" name="txtFName" type="text" placeholder="First Name(optional)">
+            </div>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-1">
+            <label class="control-label col-xs-12 col-md-12 padding-1" style="text-align: center;">
+                OR
+            </label>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-1">
+            <div class="col-xs-9 col-md-9  padding-1">
+                <input class="form-control" id="txtEmail" name="txtEmail" type="text" placeholder="Email">
+            </div>
+            <div class="col-xs-3 col-md-3 padding-1 float-right">
+                <label class="control-label col-xs-10 col-md-10 padding-1" style="text-align: right;" for="chkExactSrch">
+                    Is Exact Search?
+                </label>
+                <input class="col-xs-2 col-md-2 padding-1" id="chkExactSrch" name="chkExactSrch" type="checkbox">
+            </div>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-1">
+            <div class="float-right padding-0">
+                <button id="btnUsrMgmtSearch" class="btn btn-primary btn-xs" type="submit">
+                    <i class='glyphicon glyphicon-search'></i> Search
+                </button>
+                <button id="btnUsrMgmtCancel" autofocus class="btn btn-primary btn-xs" type="button">
+                    <i class='glyphicon glyphicon-remove'></i> Cancel
+                </button>
+            </div>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-1">
+            <div id="kGrid_Access_SearchUser_Top" class="kGrid">
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<script id="s2GuidSearchResult_Template" type="text/html">
+    <div class="row-fluid col-xs-12 col-md-12 padding-0">
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <label class="control-label col-xs-4 col-md-4  padding-1" for="spanS2SearchResultGuid">
+                Server 2 Details for eAudIT Engagement ID
+            </label>
+            <div class="col-xs-8 col-md-8   padding-1">
+                <span class="form-control" id="spanS2SearchResultGuid"></span>
+            </div>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <label class="control-label col-xs-4 col-md-4  padding-1" for="txtMafFileName">
+                MAF Name
+            </label>
+            <div class="col-xs-8 col-md-8   padding-1">
+                <input class="form-control" id="txtMafFileName" name="txtMafFileName" type="text" disabled>
+            </div>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <label class="control-label col-xs-12 col-md-12 padding-1">
+                The table below presents all of the workbooks within the linked eAudIT MAF. Note that this eAudIT MAF and the workbooks it contains can only be linked to one DRMS workspace.
+            </label>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <div class="col-xs-12 col-md-12 padding-1">
+                <div id="kGrid_S2GuidMap_Search" class="kGrid"></div>
+            </div>
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+        </div>
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <div class="float-right padding-0">
+                <button id="btnLinkGuidAdd" class="btn btn-primary btn-xs" type="button">
+                    <i class='glyphicon glyphicon-ok'></i> Link Engagement ID
+                </button>
+                <button id="btnLinkGuidCancel" class="btn btn-primary btn-xs" type="button">
+                    <i class='glyphicon glyphicon-remove'></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="wbTmp" type="text/html">
+    <div class="control-label col-xs-10 col-md-10 padding-0">
+        <label data-bind="text: $data"></label>
+    </div>
+    <div class="col-xs-2 col-md-2 padding-0">
+        <i data-bind="attr: {'id': $data}" class="glyphicon glyphicon-remove red remWb  float-right"></i>
+    </div>
+</script>
+
+<script id="largeRetentionFileTemp" type="text/html">
+    <div class="control-label col-xs-10 col-md-10 padding-0">
+        <label data-bind="text: $data"></label>
+    </div>
+    <div class="col-xs-2 col-md-2 padding-0">
+        <i data-bind="attr: {'id': $data}" class="glyphicon glyphicon-remove red remLargeRetentionFile float-right"></i>
+    </div>
+</script>
+
+<script id="adminEMDD_0" type="text/html">
+    <!--ko foreach: WsGroups()-->
+    <!-- ko if: WsUserType() == 'ADMIN' -->
+
+    <select class="form-control" id="txtParEmail" name="txtParEmail"
+            data-bind="options: GrpUsers(),
+                               optionsText: 'Email',
+                               value: 'Email'"></select>
+    <!-- /ko -->
+    <!-- /ko -->
+</script>
+
+<script id="adminEMDD_1" type="text/html">
+    <!--ko foreach: WsGroups()-->
+    <!-- ko if: WsUserType() == 'ADMIN' -->
+    @*<option data-bind="repeat: {foreach: GrpUsers(), bind: 'value: $item().Email, text: $item().Email'}"></option>*@
+    <option data-bind="repeat: $data.GrpUsers" data-repeat-bind="value: $item().Email, text: $item().Email"></option>
+    <!-- /ko -->
+    <!-- /ko -->
+</script>
+
+<script id="adminEMDD" type="text/html">
+    <!--ko foreach: WsGroups()-->
+    <!-- ko if: WsUserType() == 'ADMIN' -->
+    <!--ko foreach: GrpUsers()-->
+    <option data-bind="value: Email, text: Email"></option>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+</script>
+
+<script id="treeElementWChild" type="text/html">
+    <!-- ko if: ($data.Name().search(viewModel.searchStr()) + 1 ) -->
+    <li>
+        <input type="checkbox" class="chkEngFldr" data-bind="attr: {'id': ObjectID}" />
+        <div class="divEng">
+            <label class="lblEngFldrName" data-bind="text: Name, attr: {'for': ObjectID}"></label>
+            <label class="lblEngFldrName-After" title="Reload"></label>
+        </div>
+        <ul class="ulEngFldr ulEngTree" data-bind="template: { name: viewModel.treeTemplate, foreach: WsFldrs() }"></ul>
+    </li>
+    <!-- /ko -->
+</script>
+
+<script id="treeElementWChild_2" type="text/html">
+    <li>
+        <input type="checkbox" class="chkEngFldr" data-bind="attr: {'id': ObjectID}" />
+        <div class="divEng">
+            <label class="lblEngFldrName" data-bind="text: Name, attr: {'for': ObjectID}"></label>
+            <label class="lblEngFldrName-After" title="Reload"></label>
+        </div>
+        <ul class="ulEngFldr ulEngBranch" data-bind="template: { name: viewModel.treeTemplate, foreach: WsFldrs() }"></ul>
+    </li>
+</script>
+
+<script id="treeFldr" type="text/html">
+    <li>
+        <span data-bind="text: Name"></span>
+        <ul data-bind="template: { name: 'treeFile', foreach: WsFiles() }"></ul>
+        <ul data-bind="template: { name: 'treeFldr', foreach: WsFldrs() }"></ul>
+    </li>
+</script>
+
+<script id="treeFile" type="text/html">
+    <li>
+        <span data-bind="text: Description"></span>
+    </li>
+</script>
+
+<script id="fileRowTmpl" type="text/html">
+    <tr>
+        <td data-bind="text: Description"></td>
+        <td data-bind="text: Size"></td>
+    </tr>
+</script>
+
+<script id="fileRowTmplAlt" type="text/html">
+    <tr>
+        <td data-bind="text: Description"></td>
+        <td data-bind="text: Size"></td>
+    </tr>
+</script>
+
+<script id="treeAccessGrp" type="text/html">
+    <!-- ko if: (UsrGrpToDisplay($data.Name())) -->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h6 class="panel-title panel-title-font12">
+
+                <a data-toggle="collapse" data-parent="#access-grp" class="accessGrp" data-bind="attr: { href: '#acord' + $data.Name() }, text: UsrGrpNameToDisplay($data.Name())"></a>
+
+                <i data-bind="attr: { id: $data.Name() }" class='grp glyphicon glyphicon-plus'></i>
+
+            </h6>
+        </div>
+        <div data-bind="attr: { id: 'acord' + $data.Name() }" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <ul data-bind="template: { name: 'treeUser', foreach: GrpUsers() }"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- /ko -->
+</script>
+
+<script id="treeUser" type="text/html">
+    <li>
+        <i class='glyphicon glyphicon-user'></i> <span data-bind="text: FullName() +' (' + Name() + ')'"></span><i data-bind="attr: {id: $parent.Name() + '-' + $data.Name()}" class='usr glyphicon glyphicon-minus'></i>
+    </li>
+</script>
+
+<script type="text/javascript">
+    @functions{
+        public string TokenHeaderValue()
+        {
+            string cookieToken, formToken;
+            AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            return cookieToken + ":" + formToken;
+        }
+    }
+
+    function GetTokenHeaderValue() {
+        return '@TokenHeaderValue()';
+    }
+
+    function AlertTest(msg) {
+        if (usrId.IsMatch("viveksingh1")) {
+            //alert(msg);
+        }
+    }
+
+    var downloadUrl = '@System.Configuration.ConfigurationManager.AppSettings["DownloadUrl"].ToString()';
+    var downloadUrl_Ip = '@System.Configuration.ConfigurationManager.AppSettings["DownloadUrl"].ToString()';
+    var uploadUrl = '@System.Configuration.ConfigurationManager.AppSettings["UploadUrl"].ToString()';
+
+    var env = '@System.Configuration.ConfigurationManager.AppSettings["env"].ToString()';
+    var usrId = '@System.Environment.UserName';
+
+    var superUser = '@System.Configuration.ConfigurationManager.AppSettings["superUser"].ToString()';
+    var wsDefaultDate = '@System.Configuration.ConfigurationManager.AppSettings["wsDefaultDate"].ToString()';
+    var remote = false;
+    var usrIp = '@Request.UserHostAddress';
+    var rootUrl = '@AuditManager.Common.ConfigUtility.GetRootUrl()';
+
+    var fakePrjNDCS = '@System.Configuration.ConfigurationManager.AppSettings["FakePrjNDCS"].ToString()';
+
+    @*$.ajax({
+        async: false,
+        url: "api/IManageUtility/GetTest",
+        headers: {
+            'RequestVerificationToken': '@TokenHeaderValue()'
+        },
+        success: function (data) {
+            $.each(data, function (idx, item) {
+                AlertTest(item.a + " -- " + item.b);
+            })
+        }
+    });*@
+
+</script>

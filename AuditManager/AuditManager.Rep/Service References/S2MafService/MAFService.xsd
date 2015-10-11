@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://useomapd1221.us.kworld.kpmg.com:8002/MAFService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/S2ClosureMAFResults" />
+  <xs:element name="GetClosureWBDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strGUID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClosureWBDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/S2ClosureMAFResults" minOccurs="0" name="GetClosureWBDetailsResult" nillable="true" type="q1:ArrayOfServer2Object" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

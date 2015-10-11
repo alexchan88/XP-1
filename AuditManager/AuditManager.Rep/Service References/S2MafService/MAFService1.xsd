@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/S2ClosureMAFResults" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/S2ClosureMAFResults" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfServer2Object">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Server2Object" nillable="true" type="tns:Server2Object" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfServer2Object" nillable="true" type="tns:ArrayOfServer2Object" />
+  <xs:complexType name="Server2Object">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClientName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngagementName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngagementNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MafGuid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MafId" type="xs:int" />
+      <xs:element minOccurs="0" name="Manager" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Partner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WbDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WbReviewId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WbStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkbookGuid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkbookId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkbookName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Server2Object" nillable="true" type="tns:Server2Object" />
+  <xs:complexType name="ServiceException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsCritical" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServiceException" nillable="true" type="tns:ServiceException" />
+</xs:schema>

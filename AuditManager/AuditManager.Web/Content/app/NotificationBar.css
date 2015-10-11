@@ -1,0 +1,162 @@
+﻿/*
+ * CSS3 Hello Bar
+ * @version 1.0
+ * @author Martin Ivanov
+ * @url developer website: http://wemakesites.net/
+ * @url developer twitter: https://twitter.com/#!/wemakesitesnet
+ * @url developer blog http://acidmartin.wordpress.com/
+ **/
+ 
+:root .acidjs-hellobar,
+.acidjs-hellobar label,
+.acidjs-hellobar label span
+{
+    display: block;
+}
+ 
+.acidjs-hellobar,
+.acidjs-hellobar *
+{
+    margin: 0;
+    padding: 0;
+}
+ 
+.acidjs-hellobar > div,
+.acidjs-hellobar label span
+{
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background: #666;
+    transition: margin 300ms ease-in-out;
+    box-shadow: 0 0 2px 2px rgba(58, 58, 58, .50);
+}
+ 
+.acidjs-hellobar,
+.acidjs-hellobar input
+{
+    display: none;
+}
+ 
+.acidjs-hellobar
+{
+    position: fixed;
+    z-index: 250;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-family: Arial, Helvetica, Verdana, Sans-serif;
+    color: #000;
+    cursor: default;
+     
+    /* these properties are required only by the demo page at http://experiments.wemakesites.net/css3-hello-bar.html */
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+}
+ 
+/* these rules are required only by the demo page at http://experiments.wemakesites.net/css3-hello-bar.html */
+.acidjs-hellobar > div,
+.acidjs-hellobar label
+{
+    -webkit-pointer-events: all;
+    -moz-pointer-events: all;
+    pointer-events: all;
+}
+ 
+.acidjs-hellobar > div
+{
+    margin-top: -37px;
+    padding: 0 64px;
+    border-bottom: solid 3px #fff;
+    font-size: 12px;
+}
+ 
+.acidjs-hellobar > div > div
+{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+ 
+.acidjs-hellobar label
+{
+    float: right;
+    margin: 0 16px 0 0;
+}
+ 
+.acidjs-hellobar label span
+{
+    width: 30px;
+    height: 30px;
+    font-size: 27px;
+    text-shadow: 0px 1px rgba(0, 0, 0, .75);
+    border: solid 3px #fff;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
+    cursor: pointer;
+}
+ 
+.acidjs-hellobar input ~ label span:first-child
+{
+    border-color: transparent;
+    box-shadow: none;
+    background: none;
+}
+ 
+.acidjs-hellobar input:not(:checked) ~ label span:first-child
+{
+    opacity: 0;
+}
+ 
+.acidjs-hellobar input:checked ~ label span:first-child
+{
+    opacity: 1;
+    transition: opacity 300ms 300ms ease-in-out;
+}
+ 
+.acidjs-hellobar input:not(:checked) ~ label span:last-child
+{
+    margin-top: -33px;
+}
+ 
+.acidjs-hellobar input:checked ~ label span:last-child
+{
+    margin-top: -70px;
+}
+ 
+.acidjs-hellobar input:checked ~  div
+{
+    margin-top: 0;
+}
+ 
+/* Colors */
+.acidjs-hellobar.acidjs-hellobar-e34c26 > div,
+.acidjs-hellobar.acidjs-hellobar-e34c26 label span
+{
+    background: #e34c26;
+}
+ 
+.acidjs-hellobar.acidjs-hellobar-78ba00 > div,
+.acidjs-hellobar.acidjs-hellobar-78ba00 label span
+{
+    background: #78ba00;
+}
+ 
+.acidjs-hellobar.acidjs-hellobar-1b58b8 > div,
+.acidjs-hellobar.acidjs-hellobar-1b58b8 label span
+{
+    background: #1b58b8;
+}
+ 
+.acidjs-hellobar.acidjs-hellobar-ff2e12 > div,
+.acidjs-hellobar.acidjs-hellobar-ff2e12 label span
+{
+    background: #ff2e12;
+}
+ 
+.acidjs-hellobar.acidjs-hellobar-aa40ff > div,
+.acidjs-hellobar.acidjs-hellobar-aa40ff label span
+{
+    background: #aa40ff;
+}

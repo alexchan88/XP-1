@@ -1,0 +1,59 @@
+﻿
+<div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+    <input type="hidden" id="hid_spanKPMGOnly" name="hid_spanKPMGOnly" data-bind="value: KPMGOnly()" />
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0 margin-bottom-5">
+        <label class="control-label row-fluid col-xs-12 col-md-12 padding-0">
+            Engagement is restricted from utilizing offshore services or third parties? <span data-bind="text: KPMGOnly.BoolToChar(KPMGOnly())"></span>
+        </label>
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <p class="margin-0 font-italic">This information is prepopulated from the Contract Management System. Any modifications need to be updated directly there. Escalations may be made via the following IMO mailbox:</p>
+            <p class="margin-0 font-italic"><a id="cmsUpdateLink" href="#" class="amLink cmsUpdateLink" onclick="javascript: fn_cmsUpdateLink_click()">US-IMO CMS Administration Mailbox</a></p>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    function fn_cmsUpdateLink_click() {
+        GetDialog(dialogType.INTERACTION, dialogSize.SMALL, dialogClass.COMMENT, 'Comment')
+          .html(html_comment_Template)
+          .data('okAction', ValidateCMSUpdate)
+          .dialog("open");
+    };
+
+    function ValidateCMSUpdate(that) {
+        if (IsNothing($("#txtActivityComment").val())) {
+            AmAlert("Please enter comment.");
+        }
+        else {
+
+            var cmsUpdateComment = $("#txtActivityComment").val();
+
+            $(that).dialog("close");
+            $.ajax({
+                type: "post",
+                url: "/api/Workspace/RequestUpdateCMS?num=" + viewModel.selectedWs().WsProfile().EngNum() + "&comment=" + cmsUpdateComment,
+                headers: {
+                    'RequestVerificationToken': GetTokenHeaderValue()
+                },
+                success: function () {
+                    AmAlert("Your request has been submited.");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    HandleError(jqXHR, textStatus, errorThrown);
+                },
+                beforeSend: function () {
+                    myApp.showPleaseWait("CMS Update request");
+                },
+                complete: function () {
+                    $("#txtActivityComment").val("");
+                    myApp.hidePleaseWait();
+                }
+            })
+        }
+    };
+</script>
+

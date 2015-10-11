@@ -1,0 +1,112 @@
+﻿.css-treeview {
+    font: normal 1em "Segoe UI", Arial, Sans-serif;
+}
+
+.css-treeview ul,
+.css-treeview li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    
+}
+
+.divEng {
+    width: 100%;
+}
+
+.css-treeview label[class='lblEngFldrName-After'] {
+    cursor: pointer;
+    width: 5%;
+    white-space: nowrap;
+    float: right;
+    padding-left: 2px;
+}
+
+.css-treeview label[class='lblEngFldrName'] {
+    cursor: pointer;
+    width: 95%;
+    white-space: nowrap;
+    float: left;
+}
+
+.css-treeview input {
+    display: none;
+}
+
+.css-treeview label[class='lblEngFldrName']:hover {
+    /*color: #00f;*/
+    background-color: #FEFABA;
+    /*border-style: ridge;
+    border-color: #FFC92B;
+    border-width:thin;*/
+    padding: 0px;
+}
+
+.css-treeview input ~ ul {
+    display: none;
+}
+
+.css-treeview input + div + ul {
+    margin: 0 0 0 22px;
+}
+
+.css-treeview input:checked:not(:disabled) ~ ul {
+    display: block;
+}
+
+.css-treeview label[class='lblEngFldrName']::before {
+    margin: 0 6px 0 0;
+    /*content: "\e117";
+    color: orangered;
+    font-family: "Glyphicons Halflings";*/
+}
+
+.css-treeview > .ulEngFarm > li > input ~ div > label[class='lblEngFldrName']::before  {
+    content: "\e117";
+    color: #DC7B37;
+    font-family: "Glyphicons Halflings";
+}
+
+.css-treeview .ulEngFldr > li > input ~ div > label[class='lblEngFldrName']  {
+    width: 100%;
+    padding-right: 0 !important;
+}
+
+.css-treeview .ulEngFldr > li > input ~ div > label[class='lblEngFldrName']::before  {
+    content: "\e117";
+    color: #FFCE71;
+    font-family: "Glyphicons Halflings";
+}
+
+.css-treeview input:checked:not(:disabled) ~ div > label[class='lblEngFldrName']::before {
+    content: "\e118";
+    /*color: white;*/
+    font-family: "Glyphicons Halflings";
+}
+
+.css-treeview > .ulEngFarm > li > input:checked:not(:disabled) ~ div > label[class='lblEngFldrName-After']::before {
+    content: "\e031";
+    font-family: "Glyphicons Halflings";
+    /*background-color: white;*/
+    color: black;
+}
+
+.css-treeview > .ulEngFarm > li > input:checked:not(:disabled) ~ div > label[class='lblEngFldrName'] {
+    /*background: #428bca;*/
+    /*color: #fff;*/
+}
+
+.css-treeview .ulEngFldr > li > input:checked:not(:disabled) ~ div > label[class='lblEngFldrName'] {
+    /*background: #428bca;*/
+    /*color: #fff;*/
+}
+
+.activeTreeItem ~ div > label {
+    background: #FCDAA4 !important;
+
+    /*background-color: #FFC92B;
+    border-style: ridge;
+    border-color: #FFC92B;
+    border-width:thin;
+    padding: 0px;*/
+}

@@ -1,0 +1,392 @@
+﻿<form id="frmSurveyRequest">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="surveyRequestType" name="surveyRequestType" value="RF" />
+
+    <input type="hidden" id="hid_cmbDCSServer_Options" name="hid_cmbDCSServer_Options" />
+    <input type="hidden" id="hid_projectCode" name="hid_projectCode" />
+
+    <div class="container-fluid padding-0">
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <p class="margin-bottom-5">You are requesting a RF for the following Engagement. You may cancel out of this request at any time by selecting the Cancel button on the bottom of this form.</p>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                @Html.Partial("MyEng/RETnRF/_RETnRF_1_Partial")
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <p class="margin-bottom-5 font-red">Reminder: A separate request is to be completed for each MAF the engagement team wants rolled forward, unless requesting multiple MAFS from the prior year is combined into 1 MAF in the current Year. If you have not requested multiple MAFS to be comb-ined into 1 and you do not complete a separate request for each MAF, the information submitted below will not be processed and this form will need to be completed again.</p>
+            </div>
+
+            @*<div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+                </div>*@
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-12 col-md-12 padding-0">
+                    <mark class="form-msg-red margin-bottom-5">Please answer all questions prior to submitting the request.</mark>
+                </label>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-7 col-md-7 padding-0" for="txtClientYearEnd">
+                    Please provide client year end for which you just reported: <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5 padding-left-10">
+                    <div class="input-group">
+                        <input class="form-control dtp-Txt" id="txtClientYearEnd" name="txtClientYearEnd" placeholder="Please select date from the calendar" required>
+                        <span id="span_txtClientYearEnd" class="input-group-addon dtp-Btn" style="cursor:pointer;">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-7 col-md-7  padding-0" for="txtBusUnit">
+                    Please state your Business unit: <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5  padding-left-10  input-append">
+                    <select class="form-control txtBusUnit" id="txtBusUnit" name="txtBusUnit" required></select>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <div class="col-xs-7 col-md-7  padding-0">
+                    <label class="control-label padding-0" for="txteAudITWF">
+                        Please state the eAudIT workflow used in this engagement file. <font class="font-asterisk-required"></font>
+                    </label>
+                    <p class="margin-0">Note – if you intend to change to a different workflow in the current year, this must be done manually.  The GDC is available to help with manual rollforward, which can be requested in WISDOM.</p>
+                </div>
+
+                <div class="col-xs-5 col-md-5  padding-left-10 input-append">
+                    <select class="form-control txteAudITWF" id="txteAudITWF" name="txteAudITWF" required></select>
+                </div>
+            </div>
+
+            @*<div class="row-fluid col-xs-12 col-md-12 padding-0">
+                    <p class="margin-top-bottom-5">Note – if you intend to change to a different workflow in the current year, this must be done manually.  The GDC is available to help with manual rollforward, which can be requested in WISDOM.</p>
+                </div>*@
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0 margin-bottom-5">
+                <label class="control-label col-xs-7 col-md-7  padding-0" for="txteAudITYr_RF">
+                    What year of eAudIT would you like your file rolled into?  Example:  for calendar year-ends, if you used eAudIT 2013, your file should typically be rolled into eAudIT 2014 <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5  padding-left-10 input-append">
+                    <select class="form-control txteAudITYr_RF" id="txteAudITYr_RF" name="txteAudITYr_RF" required></select>
+                </div>
+            </div>
+
+            <!---->
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-7 col-md-7 padding-0" for="cmbProjectCode">
+                    Please provide your Audit Applications Launch Site Project Code (i.e. PC#######): <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5 padding-left-10">
+                    <div class="col-xs-6 col-md-6 padding-0  input-append">
+                        <select class="form-control cmbProjectCode" id="cmbProjectCode" name="cmbProjectCode" required disabled></select>
+                    </div>
+                    <div class="col-xs-6 col-md-6 padding-left-5">
+                        <input class="form-control prjCode" id="txtProjectCode" name="txtProjectCode" type="text" maxlength="9" placeholder="Enter Project Code">
+                    </div>
+                    @*<div class="col-xs-4 col-md-4 padding-left-5">
+                        <label class="control-label padding-0">Don't have one</label> <input class="" id="chkProjectCode" name="chkProjectCode" type="checkbox">
+                    </div>*@
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-7 col-md-7  padding-0" for="cmbDCSServer">
+                    Please select the Server Location of your PY eAudIT file: <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5  padding-left-10  input-append">
+                    <select class="form-control cmbDCSServer" id="cmbDCSServer" name="cmbDCSServer" required disabled></select>
+                </div>
+            </div>
+            <!---->
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0 margin-bottom-5">
+                <label class="control-label col-xs-7 col-md-7  padding-0" for="divRFEBP">
+                    Is this roll forward request for EBP? <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5 padding-left-10">
+                    <div id="divRFEBP" class=" input-append">
+                        <label class="radio-inline">
+                            <input type="radio" name="radRFEBP" id="radRFEBPYes" value="Yes" required> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="radRFEBP" id="radRFEBPNo" value="No"> No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12  padding-0 margin-bottom-5">
+                <label class="control-label col-xs-7 col-md-7    padding-0" for="div1MAF2Multi">
+                    Are you splitting 1 MAF into multiple MAFs? <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5   padding-left-10">
+                    <div id="div1MAF2Multi" class=" input-append">
+                        <label class="radio-inline">
+                            <input type="radio" name="rad1MAF2Multi" id="rad1MAF2MultiYes" value="Yes" required> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="rad1MAF2Multi" id="rad1MAF2MultiNo" value="No"> No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0 divMultiMAF21_Tog_1  margin-bottom-5">
+
+                <div class="col-xs-7 col-md-7  padding-0">
+                    <label class="control-label padding-0" for="divMultiMAF21">
+                        Do you want to combine multiple MAFs into single MAF? <font class="font-asterisk-required"></font>
+                    </label>
+                    <p class="divMultiMAF21_Tog_2 margin-0 font-italic">If you are requesting to combine multiple MAFs into 1 MAF please be aware that this cannot be performed on MAFs that were either (a) started from the same eAudIT  template or (b) were restored from a backup of the same MAF.</p>
+                </div>
+
+                @*<label class="control-label col-xs-7 col-md-7 padding-0" for="divMultiMAF21">
+                        Do you want to combine multiple MAFs into single MAF? <font class="font-asterisk-required"></font>
+                    </label>*@
+
+                <div class="col-xs-5 col-md-5    padding-left-10">
+                    <div id="divMultiMAF21" class=" input-append">
+                        <label class="radio-inline">
+                            <input type="radio" name="radMultiMAF21" id="radMultiMAF21Yes" value="Yes" required> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="radMultiMAF21" id="radMultiMAF21No" value="No"> No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="row-fluid col-xs-12 col-md-12  padding-0 divMultiMAF21_Tog_2">
+                    <p class="margin-bottom-5 font-italic">If you are requesting to combine multiple MAFs into 1 MAF please be aware that this cannot be performed on MAFs that were either (a) started from the same eAudIT  template or (b) were restored from a backup of the same MAF.</p>
+                </div>*@
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0  margin-bottom-5">
+
+                <div class="col-xs-7 col-md-7  padding-0">
+                    <label class="control-label padding-0" for="divDiffWf">
+                        Are you intending to rollforward your engagement file into a different workflow? <font class="font-asterisk-required"></font>
+                    </label>
+                    <p class="divDiffWf_Tog_1 margin-0 font-italic">Please be aware this is a manual process; however, the GDC is available to assist. Please consult the appropriate steps <a class="amLink" target="_blank" href="https://portal.ema.kworld.kpmg.com/audit/countries/US/AuditOffshoring/Pages/GDCandManualRollforwardProcedures.aspx">here</a> in order to proceed.</p>
+                </div>
+
+                @*<label class="control-label col-xs-7 col-md-7  padding-0" for="divDiffWf">
+                        Are you intending to rollforward your engagement file into a different workflow? <font class="font-asterisk-required"></font>
+                    </label>*@
+
+                <div class="col-xs-5 col-md-5    padding-left-10">
+                    <div id="divDiffWf" class=" input-append">
+                        <label class="radio-inline">
+                            <input type="radio" name="radDiffWf" id="radDiffWfYes" value="Yes" required> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="radDiffWf" id="radDiffWfNo" value="No"> No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="row-fluid col-xs-12 col-md-12  padding-0 divDiffWf_Tog_1">
+                    <p class="margin-0 font-italic">Please be aware this is a manual process; however, the GDC is available to assist. Please consult the appropriate steps <a class="amLink" target="_blank" href="https://portal.ema.kworld.kpmg.com/audit/countries/US/AuditOffshoring/Pages/GDCandManualRollforwardProcedures.aspx">here</a> in order to proceed.</p>
+                </div>*@
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0  margin-bottom-5">
+
+                <div class="row-fluid col-xs-12 col-md-12 padding-0">
+
+                    <label class="control-label col-xs-7 col-md-7   padding-0" for="divPartialRF">
+                        Partial Rollforward is an option available for engagement teams who plan to make significant changes in their audit approach from one audit period to the next. Would you like to perform a partial RF? <font class="font-asterisk-required"></font>
+                    </label>
+                    <div class="col-xs-5 col-md-5    padding-left-10">
+                        <div id="divPartialRF" class=" input-append">
+                            <label class="radio-inline">
+                                <input type="radio" name="radPartialRF" id="radPartialRFYes" value="Yes" required> Yes
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="radPartialRF" id="radPartialRFNo" value="No"> No
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid col-xs-12 col-md-12 padding-0 divPartialRF_Tog_1">
+
+                    <div class="  input-append">
+                        <div class="col-xs-4 col-md-4     float-left">
+                            <input type="radio" name="radPartialRFDesc" id="radPartialRFDescAccount" value="Account" required> Modify Account Decisions
+                        </div>
+                        <div class="col-xs-4 col-md-4     ">
+                            <input type="radio" name="radPartialRFDesc" id="radPartialRFDescProcess" value="Process"> Modify Process Groupings and Related Controls
+                        </div>
+                        <div class="col-xs-4 col-md-4     float-right">
+                            <input type="radio" name="radPartialRFDesc" id="radPartialRFDescProgram" value="Program"> Modify Program Groups
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            @*<div class="row-fluid col-xs-12 col-md-12  padding-0  divPartialRF_Tog_1">
+                    <div class="  input-append">
+                        <div class="col-xs-4 col-md-4     float-left">
+                            <input type="radio" name="radPartialRFDesc" id="radPartialRFDescAccount" value="Account" required> Modify Account Decisions
+                        </div>
+                        <div class="col-xs-4 col-md-4     ">
+                            <input type="radio" name="radPartialRFDesc" id="radPartialRFDescProcess" value="Process"> Modify Process Groupings and Related Controls
+                        </div>
+                        <div class="col-xs-4 col-md-4     float-right">
+                            <input type="radio" name="radPartialRFDesc" id="radPartialRFDescProgram" value="Program"> Modify Program Groups
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0  margin-bottom-5">
+                <label class="control-label col-xs-7 col-md-7   padding-0" for="divSawEng">
+                    Is this a SAW engagement? <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5    padding-left-10">
+                    <div id="divSawEng" class="  input-append">
+                        <label class="radio-inline">
+                            <input type="radio" name="radSawEng" id="radSawEngYes" value="Yes" required> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="radSawEng" id="radSawEngNo" value="No"> No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0 " data-bind="with: selectedFile()">
+                <label class="control-label col-xs-7 col-md-7   padding-0" for="txtMAFName">
+                    Name of MAF:
+                </label>
+                <div class="col-xs-5 col-md-5    padding-left-10">
+                    <input type="hidden" id="txtDocNum" name="txtDocNum" data-bind="value: Number()">
+                    <input class="form-control" id="txtMAFName" name="txtMAFName" type="text" data-bind="value: Description()" disabled>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0 ">
+                <label class="control-label col-xs-7 col-md-7   padding-0" for="txtNoOfMAF">
+                    Number of MAFs: <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5    padding-left-10 input-append">
+                    <input class="form-control inOnlyNum" id="txtNoOfMAF" name="txtNoOfMAF" type="number" min="1" step="1" pattern="\d+" required>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                <label class="control-label col-xs-7 col-md-7   padding-0" for="txtPrimWBName">
+                    What is the name of workbook that will be the primary workbook? <font class="font-asterisk-required"></font>
+                </label>
+                <div class="col-xs-5 col-md-5    padding-left-10 input-append">
+                    <input class="form-control onlyFileName" id="txtPrimWBName" name="txtPrimWBName" type="text" required>
+                </div>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12   padding-0">
+                <p class="margin-0">
+                    Instructions on how to process rollforward:<br />
+                    Please describe how workbooks within the MAF requested for rollforward were added (Single Workbook, Multi - workbook in Activity 0.1.1 or Group Functionality in Activity 2.8.1.4). If requesting to combine multiple MAFs into 1MAF additionaly please provide 1)the name of each additional MAF 2) how the workbooks within each MAF were added(Single Workbook, Multi-Workbook in Activity 0.1.1 or Group Functionality in Activity 2.8.1.4) and 3) the names of each workbook within each additional MAF. Lastly, please provide any additional instructions that the Centralized Team would need in order to complete the rollforward request.
+                    Specify Instructions in the box below.
+
+                    <a class="tooltip" href="#" title="
+                              Example
+                              MAF #1: How were workbooks added Single.
+                              MAF Name #2 ABC Co Sub
+                              How were workbooks added: Multi Workbook FUnctionality
+                              Workbook 1 Name: Division A
+                              Workbook 2 Name: Division B
+                              Workbook 3 Name: Division C
+
+                              Additional instructions: Please roll forward all the workbooks in MAF #1 and only the first two workbooks in MAF #2
+                              (Division A and Division B)
+                            "></a>
+                    <label class="lblIns2ProcRFMsg">Click here</label> for an example.
+
+                </p>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12   padding-0">
+                <textarea class="form-control textarea-resize" rows="3" name="txtAIns" id="txtAIns" maxlength="1000"></textarea>
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0 input-append">
+
+                <div class="col-xs-7 col-md-7  padding-0">
+                    <label class="control-label padding-0" for="txtRFReqDate">
+                        Required Date (Note there is a minimum 5 business day turnaround on RF requests. Please carefully select the earliest date which you require your RF file to be made available. We will process all RFs as soon as possible.) <font class="font-asterisk-required"></font>
+                    </label>
+                    <p class="margin-0">Note: All members listed in the Administrators group will receive e-mail notification when the RF file is available.</p>
+                </div>
+
+                @*<label class="control-label col-xs-7 col-md-7 padding-0" for="txtRFReqDate">
+                        Required Date (Note there is a minimum 4 business day turnaround on RF requests. Please carefully select the earliest date which you require your RF file to be made available. We will process all RFs as soon as possible.)
+                    </label>*@
+
+                <div class="col-xs-5 col-md-5 padding-left-10">
+
+                    <div class="input-group">
+                        <input class="form-control dtp-NoWeakEndPastDateNDateOffSet-Txt" id="txtRFReqDate" name="txtRFReqDate" placeholder="Please select date from the calendar" required>
+                        <span class="input-group-addon dtp-NoWeakEndPastDateNDateOffSet-Btn" style="cursor:pointer;">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            @*<div class="row-fluid col-xs-12 col-md-12  padding-0">
+                    <p class="margin-top-bottom-5-">
+                        Note: All members listed in the Administrators group will receive e-mail notification when the RF file is available.
+                    </p>
+                </div>*@
+
+            <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+            </div>
+
+            <!-- ko with: selectedWs() -->
+            <!-- ko with: WsProfile() -->
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                @Html.Partial("MyEng/RETnRF/_RETnRF_3_Partial")
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+            </div>
+
+            <div class="row-fluid col-xs-12 col-md-12 padding-0">
+                @Html.Partial("MyEng/RETnRF/_RETnRF_4_Partial")
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+@Scripts.Render("~/bundles/retNRf")
+<script type="text/javascript">
+    $(function () {
+        ko.applyBindings(viewModel, document.getElementById("frmSurveyRequest"));
+        $("#txtRFReqDate").val(((new Date()).addBusinessDays(daysToOffSet + 1)).ToDate());
+    });
+</script>
+
+
+
+
+
+
+
+

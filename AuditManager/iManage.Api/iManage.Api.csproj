@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5F39087A-7830-4317-937D-DBD389FFF739}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>iManage.Api</RootNamespace>
+    <AssemblyName>iManage.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EF\iMDbContext.cs" />
+    <Compile Include="EF\iMDbInit.cs" />
+    <Compile Include="Model\Active\APP.cs" />
+    <Compile Include="Model\Active\ARCHIVETBL.cs" />
+    <Compile Include="Model\Active\ARSET_INFO.cs" />
+    <Compile Include="Model\Active\BIG_SID_TABLE.cs" />
+    <Compile Include="Model\Active\CACHE_UPDATE.cs" />
+    <Compile Include="Model\Active\CAPTION.cs" />
+    <Compile Include="Model\Active\CHANGE_EVENTS.cs" />
+    <Compile Include="Model\Active\CHANGE_EVENT_PROPERTIES.cs" />
+    <Compile Include="Model\Active\CHANGE_EVENT_QUEUES.cs" />
+    <Compile Include="Model\Active\CHECKOUT.cs" />
+    <Compile Include="Model\Active\CUSTOM1.cs" />
+    <Compile Include="Model\Active\CUSTOM10.cs" />
+    <Compile Include="Model\Active\CUSTOM11.cs" />
+    <Compile Include="Model\Active\CUSTOM12.cs" />
+    <Compile Include="Model\Active\CUSTOM2.cs" />
+    <Compile Include="Model\Active\CUSTOM29.cs" />
+    <Compile Include="Model\Active\CUSTOM3.cs" />
+    <Compile Include="Model\Active\CUSTOM30.cs" />
+    <Compile Include="Model\Active\CUSTOM31.cs" />
+    <Compile Include="Model\Active\CUSTOM4.cs" />
+    <Compile Include="Model\Active\CUSTOM5.cs" />
+    <Compile Include="Model\Active\CUSTOM6.cs" />
+    <Compile Include="Model\Active\CUSTOM7.cs" />
+    <Compile Include="Model\Active\CUSTOM8.cs" />
+    <Compile Include="Model\Active\CUSTOM9.cs" />
+    <Compile Include="Model\Active\DOCARTIFACT.cs" />
+    <Compile Include="Model\Active\DOCCACHE.cs" />
+    <Compile Include="Model\Active\DOCCLASS.cs" />
+    <Compile Include="Model\Active\DOCMASTER.cs" />
+    <Compile Include="Model\Active\DOCSERVER.cs" />
+    <Compile Include="Model\Active\DOCSUBCLASS.cs" />
+    <Compile Include="Model\Active\DOCTYPE.cs" />
+    <Compile Include="Model\Active\DOCUSER.cs" />
+    <Compile Include="Model\Active\DOC_ACCESS.cs" />
+    <Compile Include="Model\Active\DOC_DENIAL.cs" />
+    <Compile Include="Model\Active\DOC_INDEX.cs" />
+    <Compile Include="Model\Active\DOC_KEYWORDS.cs" />
+    <Compile Include="Model\Active\DOC_NVPS.cs" />
+    <Compile Include="Model\Active\DSECURITY.cs" />
+    <Compile Include="EF\BaseDbContext.cs" />
+    <Compile Include="Model\Active\EMAIL_ATTRS.cs" />
+    <Compile Include="Model\Active\EM_PROJECTS.cs" />
+    <Compile Include="Model\Active\EM_REQUESTS.cs" />
+    <Compile Include="Model\Active\FORM.cs" />
+    <Compile Include="Model\Active\FORM_CONTROLS.cs" />
+    <Compile Include="Model\Active\FORM_TEMPLATE.cs" />
+    <Compile Include="Model\Active\FORM_TYPES.cs" />
+    <Compile Include="Model\Active\GROUP.cs" />
+    <Compile Include="Model\Active\GRP_SCTY_ACC_TEMP.cs" />
+    <Compile Include="Model\Active\INDEX_COLLECTION.cs" />
+    <Compile Include="Model\Active\KEYWORD.cs" />
+    <Compile Include="Model\Active\KMTAG.cs" />
+    <Compile Include="Model\Active\LIBRARy.cs" />
+    <Compile Include="Model\Enums\DBType.cs" />
+    <Compile Include="Model\Enums\EnvType.cs" />
+    <Compile Include="Model\Enums\ObjectType.cs" />
+    <Compile Include="Model\Active\MOVED_PROJECTS.cs" />
+    <Compile Include="Model\Active\NODELOC.cs" />
+    <Compile Include="Model\Active\PALETTE.cs" />
+    <Compile Include="Model\Active\PROJARTIFACT.cs" />
+    <Compile Include="Model\Active\PROJECT.cs" />
+    <Compile Include="Model\Active\PROJECT_ITEMS.cs" />
+    <Compile Include="Model\Active\PROJECT_NVPS.cs" />
+    <Compile Include="Model\Active\PROJ_ACCESS.cs" />
+    <Compile Include="Model\Active\PROJ_DENIAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Active\QUICK_RETRIEVE.cs" />
+    <Compile Include="Model\Active\REEVENTDEF.cs" />
+    <Compile Include="Model\Active\REEVENTLOG.cs" />
+    <Compile Include="Model\Active\RELATED_DOCS.cs" />
+    <Compile Include="Model\Active\RERULE.cs" />
+    <Compile Include="Model\Active\RERULEHANDLER.cs" />
+    <Compile Include="Model\Active\RESTORETBL.cs" />
+    <Compile Include="Model\Active\ROLE.cs" />
+    <Compile Include="Model\Active\ROLE_NVPS.cs" />
+    <Compile Include="Model\Active\ROLE_PROFILES.cs" />
+    <Compile Include="Model\Active\SEARCH_PROFILES.cs" />
+    <Compile Include="Model\Active\SECURITY_TEMPLATE.cs" />
+    <Compile Include="Session\AdminSession.cs" />
+    <Compile Include="Session\ISession.cs" />
+    <Compile Include="Session\UserSession.cs" />
+    <Compile Include="Model\Active\SID_TABLE.cs" />
+    <Compile Include="Model\Active\SRCH_PROF_ACCESS.cs" />
+    <Compile Include="Model\Active\SRCH_PROF_DENIAL.cs" />
+    <Compile Include="Model\Active\SSR_RETRY.cs" />
+    <Compile Include="Model\Active\SYNC_ITEMS.cs" />
+    <Compile Include="Model\Active\SYNC_LOCATIONS.cs" />
+    <Compile Include="Model\Active\SYNC_PREFERENCES.cs" />
+    <Compile Include="Model\Active\SYSTEM_MANAGEMENT.cs" />
+    <Compile Include="Model\Active\SYSTEM_PREFERENCES.cs" />
+    <Compile Include="Model\Active\SYSTEM_SYNC_PREFS.cs" />
+    <Compile Include="Model\Active\TEMPLATE_CONTROLS.cs" />
+    <Compile Include="Model\Active\TYPEMAP.cs" />
+    <Compile Include="Model\Active\USERACTION.cs" />
+    <Compile Include="Model\Active\USERHISTORY.cs" />
+    <Compile Include="Model\Active\USER_PREFERENCES.cs" />
+    <Compile Include="Model\Active\USER_SYNC_PREFS.cs" />
+    <Compile Include="Model\Active\USR_SCTY_ACC_TEMP.cs" />
+    <Compile Include="Model\Active\USR_SCTY_TEMP_ASSC.cs" />
+    <Compile Include="Utility\DbConStr.cs" />
+    <Compile Include="Utility\iMExtns.cs" />
+    <Compile Include="Utility\iMUtility.cs" />
+    <Compile Include="Model\Active\WEB_PAGE_ACCESS.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IMANADMIN">
+      <Guid>{2D38AF13-6C75-11D4-AB0E-00C04F6803D1}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="IManage">
+      <Guid>{CF424CA8-866F-45BF-BE09-A239048A3DBD}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Eng\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

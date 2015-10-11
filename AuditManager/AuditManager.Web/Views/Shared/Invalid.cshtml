@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Invalid";
+    Layout = "~/Views/Shared/Layout/_Layout.cshtml";
+}
+
+<div class="row-fluid col-xs-12 col-md-12">
+    <div class="row-fluid col-xs-12 col-md-12 jumbotron">
+        <h2 class="text-center">Invalid</h2>
+    </div>
+    <div class="row-fluid col-xs-12 col-md-12">
+        <h4 class="text-center">
+            The page you are looking for has been moved please <a id="auditManagerAccess" href="@AuditManager.Common.ConfigUtility.GetRootUrl()" class="amLink">click here</a> to go to Audit Manager.
+        </h4>
+    </div>
+</div>
+
+<script type="text/javascript">
+    toLoadWs = false;
+</script>
+
+

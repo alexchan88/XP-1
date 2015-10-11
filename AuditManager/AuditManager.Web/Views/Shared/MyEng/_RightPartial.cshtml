@@ -1,0 +1,24 @@
+﻿<div id="myEngTab" class="myEngTab-dimension">
+    <ul>
+        <li><a href="#wsProfile">Workspace Profile</a></li>
+        <li><a href="#wsFile">Files</a></li>
+        <li><a href="#wsAccess">Manage Access</a></li>
+        <li><a href="#wsS2Act">Workspace Activities</a></li>
+    </ul>
+
+    <div class="row-fluid col-xs-12 col-md-12 padding-0 content-right">
+        <div id="wsProfile">
+            @Html.Partial("MyEng/_WsProfilePartial")
+        </div>
+        <div id="wsFile">
+            @Html.Partial("MyEng/_WsFilePartial")
+        </div>
+        <div id="wsAccess">
+            @Html.Partial("MyEng/_WsAccessPartial")
+        </div>
+        <div id="wsS2Act">
+            @Html.Partial("MyEng/_WsActivityPartial")
+        </div>
+    </div>
+
+</div>

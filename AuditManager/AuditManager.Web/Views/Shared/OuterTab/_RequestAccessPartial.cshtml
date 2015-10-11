@@ -1,0 +1,404 @@
+﻿<form id="frm_RequestAccess">
+    @Html.AntiForgeryToken()
+    <div id="" class="container-fluid padding-0">
+
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <div id="divWSAlreadyExists_RequestAccess" class="row-fluid col-xs-12 col-md-12 padding-5 txt-align-center"></div>
+
+            <div class="row-fluid col-xs-12 col-sm-12 col-md-12 padding-0">
+                <div>
+                    <label id="lblValidSyncEngNum_RequestAccess" class="control-label col-xs-3 col-sm-3 col-md-3 padding-0" for="txtEngId_RequestAccess">
+                        Enter a valid SYNC Engagement Number
+                    </label>
+                    <div class="col-xs-4 col-sm-4 col-md-4 padding-0">
+                        <input class="form-control onlyNumber" id="txtEngId_RequestAccess" name="txtEngId_RequestAccess" type="number" placeholder="Engagement Number">
+                    </div>
+                </div>
+
+                <div class="divCreateDetails_RequestAccess">
+                    <label class="control-label col-xs-2 col-sm-2 col-md-2 padding-left-10" for="txtEngName_RequestAccess">
+                        Engagement Name
+                    </label>
+                    <div class="col-xs-4 col-md-4 padding-0">
+                        <input class="form-control" id="txtEngName_RequestAccess" name="txtEngName_RequestAccess" type="text" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divCreateDetails_RequestAccess">
+
+                <div class="row-fluid col-xs-12 col-sm-12 col-md-12 padding-0">
+                    <label class="control-label col-xs-2 col-sm-2 col-md-2 padding-0" for="txtEngPar_RequestAccess">
+                        Engagement Partner
+                    </label>
+                    <div class="col-xs-4 col-col-sm-4 md-4 padding-0">
+                        <input class="form-control" id="txtEngPar_RequestAccess" name="txtEngPar_RequestAccess" type="text" disabled>
+                    </div>
+                    <label class="control-label col-xs-2 col-sm-2 col-md-2 padding-left-10" for="txtEngMgr_RequestAccess">
+                        Engagement Manager
+                    </label>
+                    <div class="col-xs-4 col-sm-4 col-md-4 padding-0">
+                        <input class="form-control" id="txtEngMgr_RequestAccess" name="txtEngMgr_RequestAccess" type="text" disabled>
+                    </div>
+                </div>
+
+                <div class="row-fluid col-xs-12 col-sm-12 col-md-12 padding-0">
+                    <label class="control-label col-xs-2 col-sm-2 col-md-2 padding-0" for="txtClient_RequestAccess">
+                        Client
+                    </label>
+                    <div class="col-xs-4 col-sm-4 col-md-4 padding-0">
+                        <input class="form-control" id="txtClient_RequestAccess" name="txtClient_RequestAccess" type="text" disabled>
+                    </div>
+                </div>
+
+                <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+                </div>
+
+                <div id="div_Option_RequestAccess">
+
+                    <div class="row-fluid bg-info col-xs-12 col-sm-12 col-md-12 padding-0  input-append">
+                        <label class="control-label col-xs-3 col-sm-3 col-md-3 padding-0 float-left" for="rad_RequestAccess">
+                            Which group do you wish to be added to?
+                        </label>
+                        <div class="col-xs-3 col-md-3">
+                            <input type="radio" name="rad_RequestAccess" id="rad_Option_Admin" value="ADMIN" required>  <font style="text-align: center;">Admin</font>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <input type="radio" name="rad_RequestAccess" id="rad_Option_Member" value="MEMBERS"> <font style="text-align: center;">Member</font>
+                        </div>
+                        <div class="col-xs-3 col-md-3 float-right">
+                            <input type="radio" name="rad_RequestAccess" id="rad_Option_Read_Only" value="READ"> <font style="text-align: center;">Read Only</font>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+                    </div>
+
+                    <div class="row-fluid col-xs-12 col-sm-12 col-md-12 padding-0  input-append">
+                        <label class="control-label col-xs-1 col-sm-1 col-md-1 padding-0 float-left" for="txtA-Comment-RequestAccess">
+                            Reason:
+                        </label>
+                        <div class="col-xs-11 col-md-11 padding-0 float-right">
+                            <textarea class="form-control textarea-resize" rows="3" name="txtA-Comment-RequestAccess" id="txtA-Comment-RequestAccess" maxlength="1000" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+                    </div>
+
+                    <div class="row-fluid col-xs-12 col-sm-12 col-md-12 padding-0">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 padding-0 float-left" for="kGrid_RequestAccess_AdminUser">
+                            Select at least one member of the workspace Administrators group as the recipient of your request for access e-mail:
+                        </label>
+                    </div>
+
+                    <div class="row-fluid col-xs-12 col-sm-12 col-md-12 padding-0">
+                        <div id="kGrid_RequestAccess_AdminUser" class="kGrid"></div>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid col-xs-12 col-md-12 rowSpacing-5">
+                </div>
+
+                <div class="row-fluid col-xs-12 col-sm-12 col-md-12 padding-0">
+                    <div class="bg-success float-right">
+                        <button id="btn_RequestAccess" class="btn btn-primary btn-xs" type="button">
+                            <i class='glyphicon glyphicon-eye-open'></i> Request Access
+                        </button>&nbsp;
+                        <button id="btnClear_RequestAccess" class="btn btn-primary btn-xs" type="button">
+                            <i class='glyphicon glyphicon-remove'></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#frm_RequestAccess").on("click", ".chkAllEmailAdminUsr", function (e) {
+            if ($(this).prop("checked")) {
+
+                $(".chkEmailAdminUsr").prop("checked", true);
+
+            }
+            else {
+
+                $(".chkEmailAdminUsr").prop("checked", false);
+
+            }
+        });
+
+        $("#frm_RequestAccess").on("click", ".chkEmailAdminUsr", function (e) {
+            if ($(this).prop("checked")) {
+
+                //$(".chkEmailAdminUsr").prop("checked", true);
+
+                if ($('.chkEmailAdminUsr:checkbox:not(:checked)').length == 0)
+                {
+                    $(".chkAllEmailAdminUsr").prop("checked", true);
+                }
+                else {
+                    $(".chkAllEmailAdminUsr").prop("checked", false);
+                }
+                //alert($('.chkEmailAdminUsr:checkbox:checked').length);
+                //alert($('.chkEmailAdminUsr:checkbox:not(:checked)').length);
+
+            }
+            else {
+
+                if ($(".chkAllEmailAdminUsr").prop("checked")) {
+
+                    $(".chkAllEmailAdminUsr").prop("checked", false);
+
+                }
+            }
+        });
+
+
+        $("#frm_RequestAccess").validate({
+
+            errorPlacement: function (error, element) {
+                //alert(error);
+                // if the input has a prepend or append element, put the validation msg after the parent div
+                if (element.parent().parent().hasClass('input-prepend') || element.parent().parent().hasClass('input-append')) {
+                    error.insertAfter(element.parent().parent());
+                    element.parent().parent().addClass("float-left");
+                    //error.addClass("margin-Lt-150");
+                    // else just place the validation message immediatly after the input
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            errorElement: "mark", // contain the error msg in a small tag
+            wrapper: "div", // wrap the error message and small tag in a div
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('error'); // add the Bootstrap error class to the control group
+            },
+            success: function (element) {
+                $(element).closest('.form-group').removeClass('error'); // remove the Boostrap error class from the control group
+            }
+
+        });
+
+        $("#btn_RequestAccess").hide();
+        $("#div_Option_RequestAccess").hide();
+        $(".divCreateDetails_RequestAccess").hide();
+
+        $('#txtEngId_RequestAccess').autocomplete({
+
+            source: function (request, response) {
+
+                $("#divWSAlreadyExists_RequestAccess").empty();
+
+                var engNum_Selected = $("#txtEngId_RequestAccess").val().trim();
+                $("#txtEngId_RequestAccess").val(engNum_Selected);
+
+                $.ajax({
+                    url: '/api/WsCreate/GetEngDetails?engNum=' + engNum_Selected,
+                    headers: {
+                        'RequestVerificationToken': GetTokenHeaderValue()
+                    },
+                    type: 'GET',
+                    dataType: "json",
+                    success: function (data) {
+
+                        if (data.length == 0) {
+                            //Invalid SYNC engagement number; please check the engagement number and try again.
+                            //AmAlert("No Engagement found.");
+                            AmAlert("Invalid SYNC engagement number; please check the engagement number and try again.");
+                        }
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.EngagementNumber,
+
+                                EngagementNumber: item.EngagementNumber,
+                                EngagementDescription: item.EngagementDescription,
+
+                                ClientId: item.ClientId,
+                                ClientName: item.ClientName,
+
+                                ManagerName: item.ManagerName,
+
+                                PartnerName: item.PartnerName,
+
+                            }
+                        }));
+                    }
+                })
+            },
+            select: function (event, ui) {
+
+                var ui_item_engNum = ui.item.EngagementNumber.trim();
+
+                $.ajax({
+                    url: '/api/WsCreate/GetIsWSExists?engNum=' + ui_item_engNum,
+                    headers: {
+                        'RequestVerificationToken': GetTokenHeaderValue()
+                    },
+                    type: 'GET',
+                    dataType: "json",
+                    success: function (data) {
+
+                        if (data) {
+
+                            $.ajax({
+                                url: '/api/WsCreate/GetDoesUserHaveAccessToEng?engNum=' + ui_item_engNum,
+                                headers: {
+                                    'RequestVerificationToken': GetTokenHeaderValue()
+                                },
+                                type: 'GET',
+                                success: function (data2) {
+                                    if (data2) {
+
+                                        var youGotAccess = "You already have access to workspace {0}. Search for the workspace under My Engagements.";
+
+                                        $("#divWSAlreadyExists_RequestAccess").append("<mark class='error'>" + youGotAccess.format([ui_item_engNum]) + "</mark>");
+
+                                        $("#btn_RequestAccess").hide();
+                                        $("#div_Option_RequestAccess").hide();
+                                        
+
+                                    }
+                                    else {
+
+                                        $("#btn_RequestAccess").show();
+                                        $("#div_Option_RequestAccess").show();
+
+                                        Draw_kGrid_RequestAccess_AdminUser(ui_item_engNum);
+
+                                        //ResizeDialog();
+
+                                    }
+                                }
+                            });
+                        }
+                        else {
+
+                            var engDontExists = "Engagement workspace {0} does not exist. Go to the Create Workspace tab to create the workspace, and then request access.";
+
+                            $("#divWSAlreadyExists_RequestAccess").append("<mark class='error'>" + engDontExists.format([ui_item_engNum]) + "</mark>");
+                            
+                            $("#btn_RequestAccess").hide();
+                            $("#div_Option_RequestAccess").hide();
+
+                        }
+
+                        $("#txtEngId_RequestAccess").val(ui_item_engNum);
+
+                        $("#txtEngName_RequestAccess").val(ui.item.EngagementDescription);
+
+                        $("#txtClient_RequestAccess").val(ui.item.ClientName);
+                        $("#txtClientNumber_RequestAccess").val(ui.item.ClientId);
+
+                        $("#txtEngMgr_RequestAccess").val(ui.item.ManagerName);
+
+                        $("#txtEngPar_RequestAccess").val(ui.item.PartnerName);
+
+                        $("#txtEngId_RequestAccess").prop("disabled", "disabled");
+
+                        $("#lblValidSyncEngNum_RequestAccess").text("Engagement Number");
+                        $("#lblValidSyncEngNum_RequestAccess").removeClass("col-xs-3");
+                        $("#lblValidSyncEngNum_RequestAccess").removeClass("col-md-3");
+                        $("#lblValidSyncEngNum_RequestAccess").addClass("col-xs-2");
+                        $("#lblValidSyncEngNum_RequestAccess").addClass("col-md-2");
+
+                        $(".divCreateDetails_RequestAccess").show();
+                    }
+                    ,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        HandleError(jqXHR, textStatus, errorThrown);
+                    },
+                    beforeSend: function () {
+                        myApp.showPleaseWait("Loading Workspace details.");
+                    },
+                    complete: function () {
+                        myApp.hidePleaseWait();
+                    }
+                })
+            },
+            minLength: 8
+        });
+
+        $("#btn_RequestAccess").click(function () {
+
+            //alert($("input[Name=rad_RequestAccess]:checked").val());
+
+            if ($('.chkEmailAdminUsr:checkbox:checked').length == 0) {
+                AmAlert("Select at least one member of the workspace Administrators group as the recipient of your request for access e-mail.");
+                return false;
+            }
+
+            var that = $(this);
+
+            var $form = $("#frm_RequestAccess");
+
+            // check if the input is valid
+            if (!$form.valid()) return false;
+
+            var arrEmailUsers = [];
+            $.each($('.chkEmailAdminUsr:checkbox:checked'), function (idx, item) {
+                arrEmailUsers.push($(item).val());
+            })
+
+            $.ajax({
+                type: 'post',
+                url: '/api/WsCreate/RequestAccess?engNum=' + $("#txtEngId_RequestAccess").val() + '&wsUserType=' + $("input[Name=rad_RequestAccess]:checked").val() + '&emailUsers=' + arrEmailUsers.join(',') + '&comment=' + $("#txtA-Comment-RequestAccess").val().trim(),
+                headers: {
+                    'RequestVerificationToken': GetTokenHeaderValue()
+                },
+                success: function (data, textStatus, xhr) {
+                    //Your request has been submitted to the members of the workspace Administrators group.
+                    //$('#dialog-RequestAccess').dialog('close');
+                    CloseMyDialog(that);
+                    HandleSuccess("RequestAccess", "");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    HandleError(jqXHR, textStatus, errorThrown);
+                },
+                beforeSend: function () {
+                    myApp.showPleaseWait("Requesting Workspace Access.");
+                },
+                complete: function () {
+                    myApp.hidePleaseWait();
+                }
+            });
+
+        });
+
+        $("#btnClear_RequestAccess").click(function () {
+
+            $("#divWSAlreadyExists_RequestAccess").empty();
+
+            $("#txtEngId_RequestAccess").val('');
+            $("#txtEngName_RequestAccess").val('');
+
+            $("#txtClient_RequestAccess").val('');
+            $("#txtClientNumber_RequestAccess").val('');
+
+            $("#txtEngMgr_RequestAccess").val('');
+
+            $("#txtEngPar_RequestAccess").val('');
+
+            $("#btn_RequestAccess").hide();
+            $("#div_Option_RequestAccess").hide();
+            $(".divCreateDetails_RequestAccess").hide();
+
+            $("#txtEngId_RequestAccess").prop("disabled", "");
+
+            $("#lblValidSyncEngNum_RequestAccess").text("Enter a valid SYNC Engagement Number");
+            $("#lblValidSyncEngNum_RequestAccess").removeClass("col-xs-2");
+            $("#lblValidSyncEngNum_RequestAccess").removeClass("col-md-2");
+            $("#lblValidSyncEngNum_RequestAccess").addClass("col-xs-3");
+            $("#lblValidSyncEngNum_RequestAccess").addClass("col-md-3");
+        })
+
+    })
+</script>
+
+

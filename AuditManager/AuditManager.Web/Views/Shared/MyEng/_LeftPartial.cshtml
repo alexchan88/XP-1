@@ -1,0 +1,110 @@
+﻿<div id="div-left-sidebar" class="row-fluid col-xs-12 col-md-12 padding-0 div-left-sidebar-dimension">
+
+    <div id="div-ws-count" class="row-fluid col-xs-12 col-md-12 padding-1">
+        <div class="col-xs-11 col-md-11 padding-1">
+            <b><span data-bind="text: treeRoot().length" class="padding-2"></span> Workspace(s) found.</b>
+            <button id="btn-RequestAccess" class="btn btn-link amLink btn-xs float-right padding-2" type="button">Request Access</button>
+        </div>
+    </div>
+    <div id="div-ws-search" class="row-fluid col-xs-12 col-md-12 padding-1">
+        <div class="col-xs-11 col-md-11 padding-1">
+            <input type="number" id="engSrch" class="form-control input-sm float-left onlyNumber" placeholder="Search Engagement" />
+        </div>
+        <div class="col-xs-1 col-md-1 padding-1 padding-left-5">
+            <button id="btnEngSrch" title="Search Engagement" type="button" class="btn btn-mini btn-primary btn-search padding-0">
+                <i class="glyphicon glyphicon-search padding-0"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div id="left-eng" class="row-fluid col-xs-12 col-md-12 padding-1 left-eng-div left-eng-dimension">
+        <div class="css-treeview">
+            <ul class="ulEngFarm" data-bind="template: { name: 'treeElementWChild', foreach: $data.treeRoot }"></ul>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+    function IsEngSearchValid() {
+        if (isInEdit) {
+            AmAlert(AmMsg.isInEdit_Msg);
+            return false;
+        }
+        return true;
+    }
+
+    function EngSearch_RemoveFilter(toRemoveFilter) {
+        if (toRemoveFilter) {
+            $("#btnEngSrch").prop("title", "Search Engagement");
+            $("#btnEngSrch").empty();
+            $("#btnEngSrch").append('<i class="glyphicon glyphicon-search padding-0"></i>');
+        }
+        else {
+            $("#btnEngSrch").prop("title", "Remove Filter");
+            $("#btnEngSrch").empty();
+            $("#btnEngSrch").append('<i class="glyphicon glyphicon-remove padding-0"></i>');
+        }
+    }
+
+    $(function () {
+
+        $("#engSrch").focus(function () {
+            EngSearch_RemoveFilter(true);
+        })
+
+        $("#btnEngSrch").click(function () {
+
+            if (IsEngSearchValid()) {
+                if ($("#btnEngSrch").prop("title").IsMatch("Search Engagement")) {
+
+                    if (!IsNothing($("#engSrch").val().trim())) {
+
+                        EngSearch_RemoveFilter(false);
+
+                        var srchTxt = $(engSrch).val().trim();
+
+                        viewModel.treeRoot(ko.utils.arrayFilter(viewModel.originalTree(), function (item) {
+                            var txtTreeRoot = item.Name().split('-').pop().trim();
+                            return txtTreeRoot.indexOf(srchTxt) > -1;
+                        }));
+
+                        if (viewModel.treeRoot().length == 0) {
+
+                            resetViewModel(viewModel);
+                            GetEngByEngNum($("#engSrch").val().trim(), "None", false, true);
+
+                        }
+                    }
+                    else {
+                        AmAlert("Please enter Engagement number to search.");
+                    }
+                }
+                else if ($("#btnEngSrch").prop("title").IsMatch("Remove Filter")) {
+                    $("#engSrch").val('');
+                    EngSearch_RemoveFilter(true);
+
+                    viewModel.treeRoot(viewModel.originalTree());
+
+                }
+            }
+        })
+
+        $("#btn-RequestAccess").click(function () {
+
+            GetDialog(dialogType.DIALOG, dialogSize.AUTO_HEIGHT_XLARGE_WIDTH, "", 'Request Access')
+                .load('/Workspace/RequestAccess/')
+                .dialog("open");
+
+            //$('#dialog-RequestAccess')
+            //    .load('/Workspace/RequestAccess/')
+            //    .dialog('option', 'title', 'Request Access')
+            //    .dialog('open');
+
+        })
+
+    });
+</script>

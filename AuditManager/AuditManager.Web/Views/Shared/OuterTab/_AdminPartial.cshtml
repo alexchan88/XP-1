@@ -1,0 +1,850 @@
+﻿<div class="row-fluid col-xs-12 col-md-12 padding-0">
+    <div class="row-fluid col-xs-12 col-md-12 rowSpacing-2">
+    </div>
+    <div class="col-xs-2 col-md-2 padding-0">
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <ul class="nav nav-pills nav-stacked" style="background-color: lightskyblue;" role="tablist">
+                @*<li role="presentation" class="adminALink"><a href="#">Workspace</a></li>*@
+                <li role="presentation" class="adminALink"><a href="#">File Activity</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Activity History</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Guid History</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Closure</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Closure Report</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Workspace Log</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Profile Activity</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Error</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Workspace Log [New]</a></li>
+                <li role="presentation" class="adminALink"><a href="#">Workspace Lookup</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-10 col-md-10 padding-0">
+        @*<div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <input id="btn-Excel" name="btn-Excel" type="button" class="btn btn-primary glyphicon-arrow-down" value="Excel" />
+         </div>*@
+        <div class="row-fluid col-xs-12 col-md-12 padding-0">
+            <div id="adminContent"></div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    $("#btn-Excel").click(function () {
+        var grid = $("#auditManagerDb_Grid").data("kendoGrid");
+        grid.saveAsExcel();
+    });
+
+    var currentLink = "";
+    var elem_EngNum = '<div class="controls form-inline col-xs-4 col-md-4 padding-5">' +
+
+                            '<label class="control-label" for="txt_AuditManagerDb_engNum">' +
+                                'Engagement Number:' +
+                            '</label>' +
+
+
+                            '<input class="form-control margin-left-10" id="txt_AuditManagerDb_engNum" name="txt_AuditManagerDb_engNum">' +
+
+                    '</div>';
+
+    var elem_UsrId = '<div class="controls form-inline col-xs-4 col-md-4 padding-5">' +
+
+                            '<label class="control-label" for="txt_AuditManagerDb_usrId">' +
+                                'User Id:' +
+                            '</label>' +
+
+                            '<input class="form-control margin-left-10" id="txt_AuditManagerDb_usrId" name="txt_AuditManagerDb_usrId">' +
+
+                    '</div>';
+
+    var fromD_toD = '<div class="controls form-inline col-xs-4 col-md-4 padding-5">' +
+
+                            '<label class="control-label" for="txt_AuditManagerDb_fromD">' +
+                                'From:' +
+                            '</label>' +
+
+
+                            '<input class="form-control dtp-Txt-NoFuture margin-left-10" id="txt_AuditManagerDb_fromD" name="txt_AuditManagerDb_fromD"  placeholder="Select date">' +
+
+                    '</div>' +
+
+                    '<div class="controls form-inline col-xs-4 col-md-4 padding-5">' +
+
+                            '<label class="control-label" for="txt_AuditManagerDb_toD">' +
+                                'To:' +
+                            '</label>' +
+
+                            '<input class="form-control dtp-Txt-NoFuture margin-left-10" id="txt_AuditManagerDb_toD" name="txt_AuditManagerDb_toD"  placeholder="Select date">' +
+
+                    '</div>';
+
+    var elem = '<div class="row-fluid col-xs-12 col-md-12 padding-0">' +
+                    '{0}{1}' +
+                    '<div class="controls form-inline col-xs-4 col-md-4 padding-1">' +
+                        '<button id="btn_AuditManagerDb_search" class="btn btn-primary btn-xs float-left" type="button">' +
+                            '<i class="glyphicon glyphicon-search"></i> Search' +
+                        '</button>' +
+                    '</div>' +
+
+                '</div>' +
+                '<br />' +
+             '<div class="row-fluid col-xs-12 col-md-12 padding-0" id="auditManagerDb_Grid"></div>';
+
+    function GetCurrentStatus(WsActivityInfo) {
+        var sp = WsActivityInfo.split(",").pop().split("=").pop();
+        return sp;
+
+    }
+
+    function GetWsActivityHistory(activity, subActivity) {
+        //
+        $("#auditManagerDb_Grid").kendoGrid({
+            dataSource: {
+                async: false,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/AuditManagerDb/GetWsActivityHistory?engNum=' + $("#txt_AuditManagerDb_engNum").val() +
+                                '&usrId=' + $("#txt_AuditManagerDb_usrId").val() + '&wsActivityType=' + activity + '&wsActivitySubType=' + subActivity,
+                            headers: {
+                                'RequestVerificationToken': GetTokenHeaderValue()
+                            },
+                            success: function (data, textStatus, xhr) {
+                                options.success(data);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                HandleError(jqXHR, textStatus, errorThrown);
+                            },
+                            beforeSend: function () {
+                                myApp.showPleaseWait("Retrieving " + activity + " History.");
+                            },
+                            complete: function () {
+                                myApp.hidePleaseWait();
+                            }
+                        });
+                    }
+                }
+            },
+            sortable: true,
+            scrollable: true,
+            dataBound: function (e) { resizeGrid("auditManagerDb_Grid"); },
+            filterable: {
+                extra: false
+            },
+
+            pageable: {
+                numeric: false,
+                previousNext: false,
+                refresh: true,
+                pageSizes: false,
+                messages: {
+                    display: "{2} items",
+                }
+            },
+            columns: [
+
+            {
+                title: 'Engagement',
+                field: 'EngNum',
+                width: 150,
+                filterable: {
+
+                    operators: {
+                        string: { contains: "Contains" }
+                    }
+                }
+            },
+            {
+                title: 'Who',
+                field: 'UserId',
+                width: 150,
+                filterable: false,
+            },
+            {
+                title: 'When',
+                field: 'DateCreated',
+                template: '#=FormatDateNTime(DateCreated)#',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'What',
+                field: 'WsSubActivity.Description',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'What Current',
+                field: 'WsActivityInfo',
+                template: '#=GetCurrentStatus(WsActivityInfo)#',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'Comment',
+                field: 'Comment',
+                template: '#=GetLongTextToolTip(Comment, 30)#',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'ActivityInfo',
+                field: 'WsActivityInfo',
+                template: '#=GetLongTextToolTip(WsActivityInfo, 20)#',
+                filterable: false,
+            },
+            ]
+        });
+        //
+
+        if (activity.IsMatch("GUID")) {
+            var grid = $("#auditManagerDb_Grid").data("kendoGrid");
+            grid.hideColumn(4);
+        }
+    }
+
+    function GetActivity_Closure(activity, subActivity) {
+        //
+        $("#auditManagerDb_Grid").kendoGrid({
+            dataSource: {
+                async: false,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/AuditManagerDb/GetClosureHistory?engNum=' + $("#txt_AuditManagerDb_engNum").val() +
+                                '&usrId=' + $("#txt_AuditManagerDb_usrId").val() + '&wsActivityType=' + activity + '&wsActivitySubType=' + subActivity,
+                            headers: {
+                                'RequestVerificationToken': GetTokenHeaderValue()
+                            },
+                            success: function (data, textStatus, xhr) {
+                                options.success(data);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                HandleError(jqXHR, textStatus, errorThrown);
+                            },
+                            beforeSend: function () {
+                                myApp.showPleaseWait("Retrieving Closure Activity.");
+                            },
+                            complete: function () {
+                                myApp.hidePleaseWait();
+                            }
+                        });
+                    }
+                }
+            },
+            sortable: true,
+            scrollable: true,
+            dataBound: function (e) { resizeGrid("auditManagerDb_Grid"); },
+            filterable: {
+                extra: false
+            },
+
+            pageable: {
+                numeric: false,
+                previousNext: false,
+                refresh: true,
+                pageSizes: false,
+                messages: {
+                    display: "{2} items",
+                }
+            },
+            columns: [
+
+            {
+                title: 'Engagement',
+                field: 'EngNum',
+                width: 150,
+                filterable: {
+
+                    operators: {
+                        string: { contains: "Contains" }
+                    }
+                }
+            },
+            {
+                title: 'Who',
+                field: 'UserId',
+                width: 150,
+                filterable: false,
+            },
+            {
+                title: 'When',
+                field: 'DateCreated',
+                template: '#=FormatDateNTime(DateCreated)#',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'Comment',
+                field: 'Comment',
+                template: '#=GetLongTextToolTip(Comment, 30)#',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'Files In Closure',
+                field: 'WsActivityInfo',
+                template: '#=GetLongTextToolTip(GetFilesInClosure(WsActivityInfo), 20)#',
+                filterable: false,
+            },
+            {
+                title: 'Large Retention Files In Closure',
+                field: 'WsActivityInfo',
+                template: '#=GetLongTextToolTip(GetLargeRetentionFilesInClosure(WsActivityInfo), 20)#',
+                filterable: false,
+            },
+            ]
+        });
+        //
+    }
+
+    function GetActivity_ClosureReport(activity, subActivity) {
+        $("#auditManagerDb_Grid").kendoGrid({
+            toolbar: ["excel", "pdf"],
+            excel: {
+                proxyURL: "/api/AuditManagerDb/PostClosureReportProxy",
+                fileName: "ClosureReport" + $("#txt_AuditManagerDb_fromD").val() + "_" + $("#txt_AuditManagerDb_toD").val() + "[" + Date.now() + "]" + ".xlsx",
+                allPages: true,
+            },
+            pdf: {
+                proxyURL: "/api/AuditManagerDb/PostClosureReportProxy",
+                fileName: "ClosureReport" + $("#txt_AuditManagerDb_fromD").val() + "_" + $("#txt_AuditManagerDb_toD").val() + "[" + Date.now() + "]" + ".pdf",
+                allPages: true,
+            },
+            dataSource: {
+                async: false,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/AuditManagerDb/GetClosureReport?fromD=' + $("#txt_AuditManagerDb_fromD").val() +
+                                '&toD=' + $("#txt_AuditManagerDb_toD").val() +
+                                '&wsActivityType=' + activity + '&wsActivitySubType=' + subActivity,
+                            headers: {
+                                'RequestVerificationToken': GetTokenHeaderValue()
+                            },
+                            success: function (data, textStatus, xhr) {
+                                options.success(data);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                HandleError(jqXHR, textStatus, errorThrown);
+                            },
+                            beforeSend: function () {
+                                myApp.showPleaseWait("Retrieving Closure Activity.");
+                            },
+                            complete: function () {
+                                myApp.hidePleaseWait();
+                            }
+                        });
+                    }
+                }
+            },
+            sortable: true,
+            scrollable: true,
+            dataBound: function (e) { resizeGrid("auditManagerDb_Grid"); },
+            filterable: {
+                extra: false
+            },
+
+            pageable: {
+                numeric: false,
+                previousNext: false,
+                refresh: true,
+                pageSizes: false,
+                messages: {
+                    display: "{2} items",
+                }
+            },
+            columns: [
+
+            {
+                title: 'Engagement',
+                field: 'EngNum',
+                width: 150,
+                filterable: {
+
+                    operators: {
+                        string: { contains: "Contains" }
+                    }
+                }
+            },
+            {
+                title: 'Who',
+                field: 'UserId',
+                width: 150,
+                filterable: false,
+            },
+            {
+                title: 'When',
+                field: 'DateCreated',
+                template: '#=FormatDateNTime(DateCreated)#',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'Comment',
+                field: 'Comment',
+                template: '#=GetLongTextToolTip(Comment, 30)#',
+                width: 200,
+                filterable: false,
+            },
+            {
+                title: 'Files In Closure',
+                field: 'WsActivityInfo',
+                template: '#=GetLongTextToolTip(GetFilesInClosure(WsActivityInfo), 20)#',
+                filterable: false,
+            },
+            {
+                title: 'Large Retention Files In Closure',
+                field: 'WsActivityInfo',
+                template: '#=GetLongTextToolTip(GetLargeRetentionFilesInClosure(WsActivityInfo), 20)#',
+                filterable: false,
+            },
+            ]
+        });
+    }
+
+    function GetFilesInClosure(closureInfo) {
+
+        if (IsNothing(closureInfo))
+            return "";
+
+        var x = JSON.parse(closureInfo);
+
+        if (IsNothing(x.fileArray))
+            return "";
+
+        return x.fileArray.split('|')[0];
+    }
+
+    function GetLargeRetentionFilesInClosure(closureInfo) {
+
+        if (IsNothing(closureInfo))
+            return "";
+
+        var x = JSON.parse(closureInfo);
+
+        if (IsNothing(x.fileArray))
+            return "";
+
+        if (x.hasLargeRetFile) {
+            return x.fileArray.split('|')[1];
+        }
+        else {
+            return null;
+        }
+    }
+
+    function GetActivity_Profile(activity, subActivity) {
+        //
+        $("#auditManagerDb_Grid").kendoGrid({
+            dataSource: {
+                async: false,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/AuditManagerDb/GetProfileHistory?engNum=' + $("#txt_AuditManagerDb_engNum").val() +
+                                '&usrId=' + $("#txt_AuditManagerDb_usrId").val() + '&wsActivityType=' + activity + '&wsActivitySubType=' + subActivity,
+                            headers: {
+                                'RequestVerificationToken': GetTokenHeaderValue()
+                            },
+                            success: function (data, textStatus, xhr) {
+                                options.success(data);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                HandleError(jqXHR, textStatus, errorThrown);
+                            },
+                            beforeSend: function () {
+                                myApp.showPleaseWait("Retrieving Profile Activity.");
+                            },
+                            complete: function () {
+                                myApp.hidePleaseWait();
+                            }
+                        });
+                    }
+                }
+            },
+            sortable: true,
+            scrollable: true,
+            filterable: {
+                extra: false
+            },
+
+            pageable: {
+                numeric: false,
+                previousNext: false,
+                refresh: true,
+                pageSizes: false,
+                messages: {
+                    display: "{2} items",
+                }
+            },
+            dataBound: function (e) {
+                resizeGrid("auditManagerDb_Grid");
+                setColors();
+            },
+            columns: [
+
+            {
+                title: 'Engagement',
+                field: 'EngNum',
+                width: 120,
+                filterable: {
+
+                    operators: {
+                        string: { contains: "Contains" }
+                    }
+                }
+            },
+            {
+                title: 'Who',
+                field: 'EnteredBy',
+                width: 120,
+                filterable: false,
+            },
+            {
+                title: 'When',
+                field: 'EnteredDate',
+                template: '#=FormatDateNTime(EnteredDate)#',
+                width: 180,
+                filterable: false,
+            },
+             //{
+             //    title: 'When2',
+             //    field: 'EnteredDate',
+             //    template: '#=FormatDateNTime(EnteredDate)#',
+             //    width: 180,
+             //    filterable: false,
+             //},
+            {
+                title: 'EvntTrgDt',
+                field: 'EventTrgDate',
+                template: '#=FormatDate(EventTrgDate)#',
+                width: 180,
+                filterable: false,
+            },
+            {
+                title: 'IsS2',
+                field: 'IsServer2',
+                filterable: false,
+            },
+            {
+                title: 'IsKDrive',
+                field: 'IsKDrive',
+                filterable: false,
+            },
+            {
+                title: 'IsPre',
+                field: 'IsUnderPreservation',
+                filterable: false,
+            },
+            {
+                title: 'PreComment',
+                field: 'Comment',
+                template: '#=GetLongTextToolTip(Comment, 10)#',
+                filterable: false,
+            },
+            {
+                title: 'Q1',
+                field: 'TPAns',
+                template: '#=GetTP(TPAns, "Q1")#',
+                filterable: false,
+            },
+            {
+                title: 'Q2',
+                field: 'TPAns',
+                template: '#=GetTP(TPAns, "Q2")#',
+                filterable: false,
+            },
+            {
+                title: 'Q3',
+                field: 'TPAns',
+                template: '#=GetTP(TPAns, "Q3")#',
+                filterable: false,
+            },
+            {
+                title: 'Q3 Comment',
+                field: 'TPAns',
+                template: '#=GetLongTextToolTip(GetTP(TPAns, "Q3_Comment"), 5)#',
+                filterable: false,
+            },
+            ]
+        });
+        //
+    }
+
+    function GetTP(tp, tpVar) {
+        if (tpVar.IsMatch("Q1")) {
+            return tp.split('|')[0].split('=')[1];
+        }
+        else if (tpVar.IsMatch("Q2")) {
+            return tp.split('|')[1].split('=')[1];
+        }
+        else if (tpVar.IsMatch("Q3")) {
+            return tp.split('|')[2].split('=')[1];
+        }
+        else if (tpVar.IsMatch("Q3_Comment")) {
+            return tp.split('|')[3].split('=')[1];
+        }
+    }
+
+    function setColors() {
+
+        var grid = $("#auditManagerDb_Grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+
+        grid.tbody.find('>tr').each(function () {
+            var dataItem = grid.dataItem(this);
+
+            if (dataItem.IsActive) {
+                $(this).css('background-color', 'yellow');
+            }
+        });
+    }
+
+    function GetEng_Log() {
+        $("#auditManagerDb_Grid").kendoGrid({
+            dataSource: {
+                async: false,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/AuditManagerDb/GetEngLog?engNum=' + $("#txt_AuditManagerDb_engNum").val(),
+                            headers: {
+                                'RequestVerificationToken': GetTokenHeaderValue()
+                            },
+                            success: function (data, textStatus, xhr) {
+                                options.success(data);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                HandleError(jqXHR, textStatus, errorThrown);
+                            },
+                            beforeSend: function () {
+                                myApp.showPleaseWait("Retrieving Engagement Log.");
+                            },
+                            complete: function () {
+                                myApp.hidePleaseWait();
+                            }
+                        });
+                    }
+                }
+            },
+            sortable: true,
+            scrollable: true,
+            dataBound: function (e) { resizeGrid("auditManagerDb_Grid"); },
+            filterable: {
+                extra: false
+            },
+
+            pageable: {
+                numeric: false,
+                previousNext: false,
+                refresh: true,
+                pageSizes: false,
+                messages: {
+                    display: "{2} items",
+                }
+            },
+            columns: [
+
+            {
+                title: 'Description',
+                field: 'Description',
+                template: '#=GetLongTextToolTip(Description, 100)#',
+                width: 600,
+                filterable: false,
+            },
+            {
+                title: 'Number',
+                field: 'Number',
+                filterable: false,
+            },
+            {
+                title: 'Extn',
+                field: 'Extn',
+                filterable: false,
+            },
+            {
+                title: 'File Size(KB)',
+                template: '#=Math.ToKb(Size)#',
+                filterable: false,
+            },
+            {
+                title: '',
+                field: '',
+                template: '<a href="javascript:DownloadFile(\'#=Number#\', \'#=Description#\')"  class="btn btn-primary btn-xs" role="button">Download <i class="glyphicon glyphicon-download"></i></a>',
+                filterable: false,
+            },
+            ]
+        });
+    }
+
+    function DownloadFile(docNum, fileName) {
+
+        var downfileQs = [];
+        downfileQs.push(docNum);
+        downfileQs.push(usrId);
+        downfileQs.push(env);
+        downfileQs.push($("#txt_AuditManagerDb_engNum").val());
+        downfileQs.push(UriComponentEncode(fileName));
+        //CreateDialog(600, 280, "Download", downloadUrl.format(downfileQs));
+
+        //06-26-2015
+        //CreateDialog(600, 280, "Download", GetDownLoadUrl(downfileQs));
+        CreateDialog_Download(fileName, docNum, null);
+    }
+
+    function GetWorkspace_Details() {
+
+    }
+
+    $(function () {
+        $(".adminALink").click(function () {
+
+            var formatArray = [];
+            currentLink = "";
+            $("#adminContent").empty();
+
+            $(".adminALink").removeClass("active");
+            $(this).addClass("active");
+
+            if ($(this).text().IsMatch("File Activity")) {
+                currentLink = "File Activity";
+                //$("#adminContent").append('<iframe id="adminFrame" style="width: 100%; height: 500px;" src="/Workspace/WsActivity"></iframe>');
+
+                var adminContent_Top = $("#adminContent").offset().top;
+                var footer_Top = $("#div-footer").offset().top;
+                var srcUrl = "/Workspace/WsActivity";
+                //alert(footer_Top - adminContent_Top);
+                //$("#adminContent").append('<iframe id="adminFrame" style="overflow: scroll; width: 100%; height: ' + (footer_Top - (adminContent_Top + 10)) + 'px;" src="' + srcUrl + '"></iframe>');
+
+                $("#adminContent").append('<iframe id="adminFrame" style="overflow: hidden; width: 100%; height: ' + (footer_Top - (adminContent_Top + 10)) + 'px;" src="' + srcUrl + '"></iframe>');
+            }
+            else if ($(this).text().IsMatch("Closure")) {
+                currentLink = "Closure";
+                formatArray.push(elem_EngNum);
+                formatArray.push(elem_UsrId);
+                $("#adminContent").append(elem.format(formatArray));
+            }
+            else if ($(this).text().IsMatch("Closure Report")) {
+                currentLink = "Closure Report";
+                formatArray.push(fromD_toD);
+                formatArray.push("");
+                $("#adminContent").append(elem.format(formatArray));
+            }    
+            else if ($(this).text().IsMatch("Workspace Log")) {
+                currentLink = "Workspace Log";
+                formatArray.push(elem_EngNum);
+                formatArray.push("");
+                $("#adminContent").append(elem.format(formatArray));
+            }
+            else if ($(this).text().IsMatch("Profile Activity")) {
+                currentLink = "Profile Activity";
+                formatArray.push(elem_EngNum);
+                formatArray.push(elem_UsrId);
+                $("#adminContent").append(elem.format(formatArray));
+            }
+            else if ($(this).text().IsMatch("Workspace")) {
+                currentLink = "Workspace";
+                formatArray.push(elem_EngNum);
+                formatArray.push("");
+                $("#adminContent").append(elem.format(formatArray));
+            }
+
+            else if ($(this).text().IsMatch("Activity History")) {
+                currentLink = "Activity History";
+                formatArray.push(elem_EngNum);
+                formatArray.push(elem_UsrId);
+                $("#adminContent").append(elem.format(formatArray));
+            }
+            else if ($(this).text().IsMatch("Guid History")) {
+                currentLink = "Guid History";
+                formatArray.push(elem_EngNum);
+                formatArray.push(elem_UsrId);
+                $("#adminContent").append(elem.format(formatArray));
+            }
+            else if ($(this).text().IsMatch("Error")) {
+                currentLink = "Error";
+                @if (AuditManager.Common.ConfigUtility.GetEnv.Equals("Prod", StringComparison.OrdinalIgnoreCase))
+                {
+
+                }
+                //var errorUrl = window.location + "/Elmah";
+                //alert(window.location.host);
+                //alert(window.location.port);
+                //alert(window.location.hostname);
+                //alert(window.location.pathname);
+                //alert(window.location.protocol);
+                var errorUrl = window.location.protocol + "//" + window.location.host + "/Elmah";
+
+                var adminContent_Top = $("#adminContent").offset().top;
+                var footer_Top = $("#div-footer").offset().top;
+
+                $("#adminContent").append('<iframe id="adminFrame" style="width: 100%; height: ' + (footer_Top - (adminContent_Top + 10)) + 'px;" src="' + errorUrl + '"></iframe>');
+            }
+            else if ($(this).text().IsMatch("Workspace Log [New]")) {
+                currentLink = "Workspace Log [New]";
+               
+                var workspaceLogUrl = "http:" + "//" + window.location.hostname;
+
+                //alert(workspaceLogUrl);
+
+                var adminContent_Top = $("#adminContent").offset().top;
+                var footer_Top = $("#div-footer").offset().top;
+
+                $("#adminContent").append('<iframe id="adminFrame" style="width: 100%; height: ' + (footer_Top - (adminContent_Top + 10)) + 'px;" src="' + workspaceLogUrl + '"></iframe>');
+            }
+            else if ($(this).text().IsMatch("Workspace Lookup")) {
+                currentLink = "Workspace Lookup";
+
+                var workspaceLogUrl = "http:" + "//" + window.location.hostname + "/KWS";
+
+                //alert(workspaceLogUrl);
+
+                var adminContent_Top = $("#adminContent").offset().top;
+                var footer_Top = $("#div-footer").offset().top;
+
+                $("#adminContent").append('<iframe id="adminFrame" style="width: 100%; height: ' + (footer_Top - (adminContent_Top + 10)) + 'px;" src="' + workspaceLogUrl + '"></iframe>');
+            }
+        })
+
+        $("body").on("click", ".adminDownloadLink", function () {
+            //alert("adminDownloadLink");
+        })
+
+        $("body").on("click", "#btn_AuditManagerDb_search", function () {
+
+            if (currentLink.IsMatch("File Activity")) {
+
+            }
+            else if (currentLink.IsMatch("Closure")) {
+                GetActivity_Closure('CLOSURE', 'CLOSURE_INITIATE');
+            }
+            else if (currentLink.IsMatch("Closure Report")) {
+                GetActivity_ClosureReport('CLOSURE', 'CLOSURE_INITIATE');
+            }
+            else if (currentLink.IsMatch("Workspace Log")) {
+                GetEng_Log();
+            }
+            else if (currentLink.IsMatch("Profile Activity")) {
+                GetActivity_Profile(null, null);
+            }
+            else if (currentLink.IsMatch("Workspace")) {
+                GetWorkspace_Details(null, null);
+            }
+
+            else if (currentLink.IsMatch("Activity History")) {
+                GetWsActivityHistory("Activity", null);
+            }
+            else if (currentLink.IsMatch("Guid History")) {
+                GetWsActivityHistory("GUID", null);
+            }
+        })
+    })
+
+</script>
